@@ -69,7 +69,46 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   
-    
+    // Edit Player Valuation
+    function editPlayerValuation(playerId, date) {
+        // Fetch player valuation data from API
+        axios.get(`http://localhost:3000/player-valuations/${playerId}/${date}`)
+        .then(response => {
+            const playerValuation = response.data;
+            // Populate the edit modal with the fetched data
+            document.getElementById('editLastSeason').value = playerValuation.lastSeason;
+            document.getElementById('editMarketValue').value = playerValuation.marketValueInEur;
+            document.getElementById('editDatetime').value = playerValuation.datetime;
+            document.getElementById('editDateWeek').value = playerValuation.dateWeek;
+            document.getElementById('editN').value = playerValuation.n;
+            document.getElementById('editCurrentClubId').value = playerValuation.currentClubId;
+            document.getElementById('editPlayerClubDomesticCompetitionId').value = playerValuation.playerClubDomesticCompetitionId;
+            document.getElementById('editPlayerId').value = playerId;
+            document.getElementById('editDate').value = date;
+
+            // Show the edit modal
+            $('#editPlayerValuationModal').modal('show');
+        })
+        .catch(error => {
+            console.error('Error fetching player valuation:', error);
+        });
+    }
+  
+  
+    // Function to delete Player Valuation
+    function deletePlayerValuation(playerId, date) {
+      if (confirm('Are you sure you want to delete this player valuation?')) {
+        axios.delete(`${baseUrl}player-valuations/${playerId}/${date}`)
+          .then(response => {
+            console.log('Player valuation deleted successfully');
+            // Refresh player valuations table
+            refreshPlayerValuations();
+          })
+          .catch(error => {
+            console.error('Error deleting player valuation:', error);
+          });
+      }
+    }
     
     function loadPlayerValuations() {
       axios.get(`${baseUrl}player-valuations/page`)
