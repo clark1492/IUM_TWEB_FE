@@ -7,6 +7,8 @@
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <!--<link rel="stylesheet" href="style.css">-->
+  <link rel="stylesheet" href="chat.css">
+
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -127,6 +129,22 @@
   <!-- Delete Player Valuation Modal -->
   <div class="modal fade" id="deletePlayerValuationModal" tabindex="-1" role="dialog" aria-labelledby="deletePlayerValuationModalLabel" aria-hidden="true">
   </div>
+
+  <!-- Chat Component -->
+  <div id="chatComponent" class="chat-component">
+    <div class="chat-header">
+      <h3>Chat</h3>
+      <button id="closeChatBtn" class="btn">✖️</button>
+    </div>
+    <div class="chat-body">
+      <div id="messageArea" class="message-area"></div>
+      <input type="text" id="messageInput" placeholder="Type your message">
+      <button id="sendMessageBtn" class="btn btn-primary">⬆️</button>
+    </div>
+  </div>
+  <!-- Chat Icon Button -->
+  <button id="openChatBtn" class="chat-icon-btn">💬</button>
+
 
   <!-- Bootstrap JS and Axios -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
