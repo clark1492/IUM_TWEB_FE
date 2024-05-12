@@ -200,5 +200,40 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+    /* Chat related code */
+    const chatComponent = document.getElementById('chatComponent');
+    const openChatBtn = document.getElementById('openChatBtn');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const messageArea = document.getElementById('messageArea');
+    const messageInput = document.getElementById('messageInput');
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+
+    let username = '';
+    let room = '';
+
+    openChatBtn.addEventListener('click', function() {
+      if (!username) {
+        username = prompt('Please enter your username:');
+        if (!username) return;
+      }
+      if (!room) {
+        room = prompt('Please enter the room name:');
+        if (!room) return;
+        socket.emit('join-room', { username, room });
+      }
+      chatComponent.style.display = 'block';
+      // Hide openChatBtn after opening the chat
+      openChatBtn.style.display = 'none';
+    });
+
+    closeChatBtn.addEventListener('click', function() {
+      chatComponent.style.display = 'none';
+      // Show openChatBtn after closing the chat
+      openChatBtn.style.display = 'block';
+    });
+
+   
+
+
 });
   
