@@ -145,7 +145,47 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    
+    // Handle form submission for editing player valuation
+    document.getElementById('editPlayerValuationForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    // Get input values
+    const lastSeason = document.getElementById('editLastSeason').value;
+    const datetime = document.getElementById('editDatetime').value;
+    const marketValue = document.getElementById('editMarketValue').value;
+    const n = document.getElementById('editN').value;
+    const currentClubId = document.getElementById('editCurrentClubId').value;
+    const playerClubDomesticCompetitionId = document.getElementById('editPlayerClubDomesticCompetitionId').value;
+    const dateWeek = document.getElementById('editDateWeek').value;
+
+    // Get player ID and date from hidden inputs
+    const playerId = document.getElementById('editPlayerId').value;
+    const date = document.getElementById('editDate').value;
+  
+    // Prepare data for update
+    const updatedPlayerValuation = {
+      lastSeason: lastSeason,
+      datetime: datetime,
+      dateWeek: dateWeek,
+      marketValueInEur: marketValue,
+      n: n,
+      currentClubId: currentClubId,
+      playerClubDomesticCompetitionId: playerClubDomesticCompetitionId
+    };
+  
+    // Send update request
+    axios.put(`http://localhost:3000/player-valuations/${playerId}/${date}`, updatedPlayerValuation)
+      .then(response => {
+        console.log('Player valuation updated successfully:', response.data);
+        // Hide the modal after successful update
+        $('#editPlayerValuationModal').modal('hide');
+        // Refresh the player valuation table
+        refreshPlayerValuations();
+      })
+      .catch(error => {
+        console.error('Error updating player valuation:', error);
+        // Handle error
+      });
+  });
 
   // Initial load of player valuations
   refreshPlayerValuations();
