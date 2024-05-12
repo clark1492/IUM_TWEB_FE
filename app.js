@@ -189,6 +189,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initial load of player valuations
   refreshPlayerValuations();
-  
+
+  // Connect to the server using socket.io
+  const socket = io("http://localhost:3000", {
+    path: "/socket-io/",
+    transports: ['websocket', 'polling'], // Use polling as a fallback
+    cors: {  // https://stackoverflow.com/a/64805972
+      origin: "http://localhost:3000",
+      credentials: true
+    }
   });
+
+});
   
