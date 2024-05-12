@@ -232,7 +232,15 @@ document.addEventListener('DOMContentLoaded', function () {
       openChatBtn.style.display = 'block';
     });
 
-   
+    
+    sendMessageBtn.addEventListener('click', function() {
+      const message = messageInput.value.trim();
+      if (message !== '') {
+        socket.emit('chat-message', { username, room, message });
+        messageInput.value = '';
+      }
+    });
+  
 
 
 });
