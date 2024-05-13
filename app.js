@@ -248,8 +248,18 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    
+    socket.on('chat-message', function(message) {
+      outputMessage(message);
+    });
 
+    function outputMessage(message) {
+      if (room !== message.room) return;
+      const div = document.createElement('div');
+      div.classList.add('message');
+      div.innerHTML = `<p><strong>${message.username}: </strong>${message.message}</p>`;
+      messageArea.appendChild(div);
+      messageArea.scrollTop = messageArea.scrollHeight;
+    }
 
 });
   
