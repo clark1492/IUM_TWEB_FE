@@ -22,35 +22,24 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to fetch Player Valuations by Player ID and Date
     document.querySelector('#searchByPlayerForm').addEventListener('submit', function (event) {
       event.preventDefault();
-      const playerId = document.querySelector('#playerId').value;
-      const date = document.querySelector('#date').value;
-      axios.get(`${baseUrl}player-valuations/${playerId}/${date}`)
-        .then(response => {
-          renderPlayerValuations(response.data);
-        })
-        .catch(error => {
-          console.error('Error fetching player valuations:', error);
-        });
+        refreshPlayerValuations();
     });
-  
-    // Function to render Player Valuations in the table
+      
     function renderPlayerValuations(playerValuations) {
       playerValuationsTableBody.innerHTML = '';
-      playerValuations.forEach(valuation => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${valuation.id.playerId}</td>
-          <td>${valuation.id.date}</td>
-          <td>${valuation.lastSeason}</td>
-          <td>${valuation.marketValueInEur}</td>
-          <td>
-            <button class="btn btn-primary btn-sm edit-valuation" data-id="${valuation.id.playerId}" data-date="${valuation.id.date}">Edit</button>
-            <button class="btn btn-danger btn-sm delete-valuation" data-id="${valuation.id.playerId}" data-date="${valuation.id.date}">Delete</button>
-          </td>
-        `;
+    
+      if (Array.isArray(playerValuations)) {
+        // If playerValuations is an array
+        playerValuations.forEach(valuation => {
+          const row = createPlayerValuationRow(valuation);
+          playerValuationsTableBody.appendChild(row);
+        });
+      } else {
+        // If playerValuations is a single object
+        const row = createPlayerValuationRow(playerValuations);
         playerValuationsTableBody.appendChild(row);
-      });
-  
+      }
+
       // Add event listeners for edit and delete buttons
       document.querySelectorAll('.edit-valuation').forEach(button => {
         button.addEventListener('click', function () {
@@ -68,7 +57,22 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       });
     }
-  
+      
+    function createPlayerValuationRow(valuation) {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${valuation.id.playerId}</td>
+        <td>${valuation.id.date}</td>
+        <td>${valuation.lastSeason}</td>
+        <td>${valuation.marketValueInEur}</td>
+        <td>
+          <button class="btn btn-primary btn-sm edit-valuation" data-id="${valuation.id.playerId}" data-date="${valuation.id.date}">Edit</button>
+          <button class="btn btn-danger btn-sm delete-valuation" data-id="${valuation.id.playerId}" data-date="${valuation.id.date}">Delete</button>
+        </td>
+      `;
+      return row;
+    }
+    
     // Edit Player Valuation
     function editPlayerValuation(playerId, date) {
         // Fetch player valuation data from API
@@ -129,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
           .catch(error => {
             console.error('Error fetching player valuations:', error);
           });
-      } else if (document.querySelector('#playerId').value && document.querySelector('#date').value){
+      } else if (document.querySelector('#playerId').value || document.querySelector('#date').value){
         const playerId = document.querySelector('#playerId').value;
         const date = document.querySelector('#date').value;
         axios.get(`${baseUrl}player-valuations/${playerId}/${date}`)
