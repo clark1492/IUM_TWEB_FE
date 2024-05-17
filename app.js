@@ -8,14 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to fetch Player Valuations by Club ID
     document.querySelector('#searchByClubForm').addEventListener('submit', function (event) {
       event.preventDefault();
-      /*const clubId = document.querySelector('#clubId').value;
-      axios.get(`${baseUrl}player-valuations/club/${clubId}`)
-        .then(response => {
-          renderPlayerValuations(response.data);
-        })
-        .catch(error => {
-          console.error('Error fetching player valuations:', error);
-        });*/
         refreshPlayerValuations();
     });
   
@@ -236,6 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
       openChatBtn.style.display = 'block';
     });
 
+    // Send message
     function sendMessage() {
       const message = messageInput.value.trim();
       if (message !== '') {
@@ -244,18 +237,23 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
+    // Send message on button click
     sendMessageBtn.addEventListener('click', sendMessage);
 
+    // Send message on Enter key press
     messageInput.addEventListener('keypress', function(event) {
       if (event.key === 'Enter') {
         sendMessage();
       }
     });
 
+    // Listen for chat-message event
     socket.on('chat-message', function(message) {
       outputMessage(message);
+      playNotificationSound();
     });
 
+    // Output message to the chat component 
     function outputMessage(message) {
       if (room !== message.room) return;
       const div = document.createElement('div');
@@ -263,6 +261,12 @@ document.addEventListener('DOMContentLoaded', function () {
       div.innerHTML = `<p><strong>${message.username}: </strong>${message.message}</p>`;
       messageArea.appendChild(div);
       messageArea.scrollTop = messageArea.scrollHeight;
+    }
+
+    // Play notification sound (https://www.w3schools.com/jsref/met_audio_play.asp)
+    function playNotificationSound() {
+      var audio = document.getElementById('notificationSound');
+      audio.play();
     }
 
 });
