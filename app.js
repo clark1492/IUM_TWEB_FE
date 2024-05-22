@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Player Valuations Table Body
     const playerValuationsTableBody = document.querySelector('#playerValuationsTable tbody');
   
+    // Player name input and datalist for autocomplete
+    const playerNameInput = document.getElementById('playerName');
+    const playerNameList = document.getElementById('playerNameList');
+    
     // Function to fetch Player Valuations by Club ID
     document.querySelector('#searchByClubForm').addEventListener('submit', function (event) {
       event.preventDefault();
@@ -87,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
             console.error('Error fetching player valuation:', error);
+            //alert('Error fetching player valuation. Do you have connection issues?')
         });
     }
   
@@ -117,6 +122,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to refresh Player Valuations table
     function refreshPlayerValuations() {
       const clubId = document.querySelector('#clubId').value;
+
+      // Find the playerId from the datalist options
+      const playerName = playerNameInput.value;
+      const selectedOption = Array.from(playerNameList.options).find(option => option.value === playerName);
+      const playerId = selectedOption ? selectedOption.dataset.playerId : null; //document.querySelector('#playerId').value
+      const date = document.querySelector('#date').value;
       if (clubId) {
         axios.get(`${baseUrl}player-valuations/club/${clubId}`)
           .then(response => {
@@ -125,9 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
           .catch(error => {
             console.error('Error fetching player valuations:', error);
           });
-      } else if (document.querySelector('#playerId').value || document.querySelector('#date').value){
-        const playerId = document.querySelector('#playerId').value;
-        const date = document.querySelector('#date').value;
+      } else if (playerId || date){
         axios.get(`${baseUrl}player-valuations/${playerId}/${date}`)
           .then(response => {
             renderPlayerValuations(response.data);
@@ -183,6 +192,26 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   });
 
+  // Fetch player names for autocomplete
+  playerNameInput.addEventListener('input', function () {
+    const query = playerNameInput.value;
+    if (query.length >= 2) { // Fetch suggestions if input length is greater than or equal to 2
+      axios.get(`${baseUrl}players/search/name?name=${query}`)
+        .then(result => {
+          playerNameList.innerHTML = '';
+          result.data.forEach(player => {
+            const option = document.createElement('option');
+            option.value = player.name;
+            option.dataset.playerId = player.playerId;
+            playerNameList.appendChild(option);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching player names for autocomplete:', error);
+        });
+    }
+  });
+
   // Initial load of player valuations
   refreshPlayerValuations();
 
@@ -195,6 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
       credentials: true
     }
   });
+  
 
     /* Chat related code */
     const chatComponent = document.getElementById('chatComponent');
