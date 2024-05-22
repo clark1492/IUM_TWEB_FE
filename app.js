@@ -52,12 +52,23 @@ document.addEventListener('DOMContentLoaded', function () {
           deletePlayerValuation(playerId, date);
         });
       });
+
+      // Add event listeners for info button
+      document.querySelectorAll('.info-player').forEach(button => {
+        button.addEventListener('click', function () {
+          const playerId = this.getAttribute('data-id');
+          infoPlayerId(playerId);
+        });
+      });
     }
       
     function createPlayerValuationRow(valuation) {
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td>${valuation.id.playerId}</td>
+        <td>
+          ${valuation.id.playerId}
+          <button type="button" class="btn btn-info btn-sm info-player float-right" data-id="${valuation.id.playerId}">Info</button>
+        </td>
         <td>${valuation.id.date}</td>
         <td>${valuation.lastSeason}</td>
         <td>${valuation.marketValueInEur}</td>
@@ -72,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Edit Player Valuation
     function editPlayerValuation(playerId, date) {
         // Fetch player valuation data from API
-        axios.get(`http://localhost:3000/player-valuations/${playerId}/${date}`)
+        axios.get(`${baseUrl}player-valuations/${playerId}/${date}`)
         .then(response => {
             const playerValuation = response.data;
             // Populate the edit modal with the fetched data
@@ -109,6 +120,22 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error deleting player valuation:', error);
           });
       }
+    }
+
+    function infoPlayerId(playerId) {
+      // Fetch player data from API
+      axios.get(`${baseUrl}players/${playerId}`)
+      .then(response=> {
+        const playerData = response.data;
+        console.log(playerData);
+        document.getElementById("editCityOfBirth").value = playerData.cityOfBirth;
+        $('#editPlayerModal').modal('show');
+      }) 
+      .catch(error => {
+        console.error('Error info player');
+        alert('C\'è stato un errore nel caricamento delle info del player' );
+      })
+      console.log(playerId);
     }
     
     function loadPlayerValuations() {

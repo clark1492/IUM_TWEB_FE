@@ -125,11 +125,30 @@
     </div>
   </div>
   
-  
-
-  <!-- Delete Player Valuation Modal -->
-  <div class="modal fade" id="deletePlayerValuationModal" tabindex="-1" role="dialog" aria-labelledby="deletePlayerValuationModalLabel" aria-hidden="true">
+     <!-- Info Player Modal -->
+<div class="modal fade" id="editPlayerModal" tabindex="-1" role="dialog" aria-labelledby="editPlayerModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editPlayerModalLabel">Edit Player </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editPlayerForm">
+          <div class="form-group">
+            <label for="editCityOfBirth">City of birth:</label>
+            <input type="text" class="form-control" id="editCityOfBirth" placeholder="Enter city of birth">
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+      </div>
+    </div>
   </div>
+</div>
+  
 
   <!-- Chat Component -->
   <div id="chatComponent" class="chat-component">
