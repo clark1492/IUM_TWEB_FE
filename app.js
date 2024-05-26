@@ -85,26 +85,26 @@ document.addEventListener('DOMContentLoaded', function () {
   function editPlayerValuation(playerId, date) {
     // Fetch player valuation data from API
     axios.get(`${baseUrl}player-valuations/${playerId}/${date}`)
-        .then(response => {
-          const playerValuation = response.data;
-          // Populate the edit modal with the fetched data
-          document.getElementById('editLastSeason').value = playerValuation.lastSeason;
-          document.getElementById('editMarketValue').value = playerValuation.marketValueInEur;
-          document.getElementById('editDatetime').value = playerValuation.datetime;
-          document.getElementById('editDateWeek').value = playerValuation.dateWeek;
-          document.getElementById('editN').value = playerValuation.n;
-          document.getElementById('editCurrentClubId').value = playerValuation.currentClubId;
-          document.getElementById('editPlayerClubDomesticCompetitionId').value = playerValuation.playerClubDomesticCompetitionId;
-          document.getElementById('editPlayerId').value = playerId;
-          document.getElementById('editDate').value = date;
+      .then(response => {
+        const playerValuation = response.data;
+        // Populate the edit modal with the fetched data
+        document.getElementById('editLastSeason').value = playerValuation.lastSeason;
+        document.getElementById('editMarketValue').value = playerValuation.marketValueInEur;
+        document.getElementById('editDatetime').value = playerValuation.datetime;
+        document.getElementById('editDateWeek').value = playerValuation.dateWeek;
+        document.getElementById('editN').value = playerValuation.n;
+        document.getElementById('editCurrentClubId').value = playerValuation.currentClubId;
+        document.getElementById('editPlayerClubDomesticCompetitionId').value = playerValuation.playerClubDomesticCompetitionId;
+        document.getElementById('editPlayerId').value = playerId;
+        document.getElementById('editDate').value = date;
 
-          // Show the edit modal
-          $('#editPlayerValuationModal').modal('show');
-        })
-        .catch(error => {
-          console.error('Error fetching player valuation:', error);
-          //alert('Error fetching player valuation. Do you have connection issues?')
-        });
+        // Show the edit modal
+        $('#editPlayerValuationModal').modal('show');
+      })
+      .catch(error => {
+        console.error('Error fetching player valuation:', error);
+        //alert('Error fetching player valuation. Do you have connection issues?')
+      });
   }
 
 
@@ -112,14 +112,14 @@ document.addEventListener('DOMContentLoaded', function () {
   function deletePlayerValuation(playerId, date) {
     if (confirm('Are you sure you want to delete this player valuation?')) {
       axios.delete(`${baseUrl}player-valuations/${playerId}/${date}`)
-          .then(response => {
-            console.log('Player valuation deleted successfully');
-            // Refresh player valuations table
-            refreshPlayerValuations();
-          })
-          .catch(error => {
-            console.error('Error deleting player valuation:', error);
-          });
+        .then(response => {
+          console.log('Player valuation deleted successfully');
+          // Refresh player valuations table
+          refreshPlayerValuations();
+        })
+        .catch(error => {
+          console.error('Error deleting player valuation:', error);
+        });
     }
   }
 
@@ -127,46 +127,46 @@ document.addEventListener('DOMContentLoaded', function () {
   function infoPlayerId(playerId) {
     // Fetch player data from API
     axios.get(`${baseUrl}players/${playerId}`)
-        .then(response => {
-          const playerData = response.data;
-          console.log(playerData);
-          document.getElementById("editFirstName").value = playerData.firstName;
-          document.getElementById("editLastName").value = playerData.lastName;
-          document.getElementById("editLastSeasonPlayer").value = playerData.lastSeason;
-          document.getElementById("editCurrentClubIdPlayer").value = playerData.currentClubId;
-          document.getElementById("editPlayerCode").value = playerData.playerCode;
-          document.getElementById("editCountryOfBirth").value = playerData.countryOfBirth;
-          document.getElementById("editCityOfBirth").value = playerData.cityOfBirth;
-          document.getElementById("editCountryOfCitizenship").value = playerData.countryOfCitizenship;
-          document.getElementById("editDateOfBirth").value = playerData.dateOfBirth;
-          document.getElementById("editSubPosition").value = playerData.subPosition;
-          document.getElementById("editPosition").value = playerData.position;
-          document.getElementById("editFoot").value = playerData.foot;
-          document.getElementById("editHeightInCm").value = playerData.heightInCm;
-          document.getElementById("editMarketValueInEur").value = playerData.marketValueInEur;
-          document.getElementById("editHighestMarketValueInEur").value = playerData.highestMarketValueInEur;
-          document.getElementById("editContractExpirationDate").value = playerData.contractExpirationDate;
-          document.getElementById("editAgentName").value = playerData.agentName;
-          document.getElementById("editImageUrl").value = playerData.imageUrl;
-          document.getElementById("editUrl").value = playerData.url;
-          document.getElementById("editCurrentClubDomesticCompetitionId").value = playerData.currentClubDomesticCompetitionId;
-          document.getElementById("editCurrentClubName").value = playerData.currentClubName;
+      .then(response => {
+        const playerData = response.data;
+        console.log(playerData);
+        document.getElementById("editFirstName").value = playerData.firstName;
+        document.getElementById("editLastName").value = playerData.lastName;
+        document.getElementById("editLastSeasonPlayer").value = playerData.lastSeason;
+        document.getElementById("editCurrentClubIdPlayer").value = playerData.currentClubId;
+        document.getElementById("editPlayerCode").value = playerData.playerCode;
+        document.getElementById("editCountryOfBirth").value = playerData.countryOfBirth;
+        document.getElementById("editCityOfBirth").value = playerData.cityOfBirth;
+        document.getElementById("editCountryOfCitizenship").value = playerData.countryOfCitizenship;
+        document.getElementById("editDateOfBirth").value = playerData.dateOfBirth;
+        document.getElementById("editSubPosition").value = playerData.subPosition;
+        document.getElementById("editPosition").value = playerData.position;
+        document.getElementById("editFoot").value = playerData.foot;
+        document.getElementById("editHeightInCm").value = playerData.heightInCm;
+        document.getElementById("editMarketValueInEur").value = playerData.marketValueInEur;
+        document.getElementById("editHighestMarketValueInEur").value = playerData.highestMarketValueInEur;
+        document.getElementById("editContractExpirationDate").value = playerData.contractExpirationDate;
+        document.getElementById("editAgentName").value = playerData.agentName;
+        document.getElementById("editImageUrl").value = playerData.imageUrl;
+        document.getElementById("editUrl").value = playerData.url;
+        document.getElementById("editCurrentClubDomesticCompetitionId").value = playerData.currentClubDomesticCompetitionId;
+        document.getElementById("editCurrentClubName").value = playerData.currentClubName;
 
-          $('#editPlayerModal').modal('show');
-        })
-        .catch(error => {
-          console.error('Error info player');
-          alert('C\'è stato un errore nel caricamento delle info del player');
-        })
+        $('#editPlayerModal').modal('show');
+      })
+      .catch(error => {
+        console.error('Error info player');
+        alert('C\'è stato un errore nel caricamento delle info del player');
+      })
     console.log(playerId);
   }
 
   function loadPlayerValuations() {
     axios.get(`${baseUrl}player-valuations/page`)
-        .then(response => {
-          renderPlayerValuations(response.data);
-        })
-        .catch(error => console.error('Error fetching player valuations:', error));
+      .then(response => {
+        renderPlayerValuations(response.data);
+      })
+      .catch(error => console.error('Error fetching player valuations:', error));
   }
 
   // Function to refresh Player Valuations table
@@ -182,26 +182,26 @@ document.addEventListener('DOMContentLoaded', function () {
     const date = document.querySelector('#date').value;
     if (clubId) {
       axios.get(`${baseUrl}player-valuations/club/${clubId}`)
-          .then(response => {
-            clubNameInput.value = '';
-            playerNameInput.value = '';
-            date.value = '';
-            renderPlayerValuations(response.data);
-          })
-          .catch(error => {
-            console.error('Error fetching player valuations:', error);
-          });
+        .then(response => {
+          clubNameInput.value = '';
+          playerNameInput.value = '';
+          date.value = '';
+          renderPlayerValuations(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching player valuations:', error);
+        });
     } else if (playerId || date) {
       axios.get(`${baseUrl}player-valuations/${playerId}/${date}`)
-          .then(response => {
-            playerNameInput.value = '';
-            clubNameInput.value = '';
-            date.value = '';
-            renderPlayerValuations(response.data);
-          })
-          .catch(error => {
-            console.error('Error fetching player valuations:', error);
-          });
+        .then(response => {
+          playerNameInput.value = '';
+          clubNameInput.value = '';
+          date.value = '';
+          renderPlayerValuations(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching player valuations:', error);
+        });
     } else {
       loadPlayerValuations();
     }
@@ -236,17 +236,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Send update request
     axios.put(`http://localhost:3000/player-valuations/${playerId}/${date}`, updatedPlayerValuation)
-        .then(response => {
-          console.log('Player valuation updated successfully:', response.data);
-          // Hide the modal after successful update
-          $('#editPlayerValuationModal').modal('hide');
-          // Refresh the player valuation table
-          refreshPlayerValuations();
-        })
-        .catch(error => {
-          console.error('Error updating player valuation:', error);
-          // Handle error
-        });
+      .then(response => {
+        console.log('Player valuation updated successfully:', response.data);
+        // Hide the modal after successful update
+        $('#editPlayerValuationModal').modal('hide');
+        // Refresh the player valuation table
+        refreshPlayerValuations();
+      })
+      .catch(error => {
+        console.error('Error updating player valuation:', error);
+        // Handle error
+      });
   });
 
   // Fetch player names for autocomplete
@@ -254,18 +254,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const query = playerNameInput.value;
     if (query.length >= 2) { // Fetch suggestions if input length is greater than or equal to 2
       axios.get(`${baseUrl}players/search/name?name=${query}&sort=name&order=asc`)
-          .then(result => {
-            playerNameList.innerHTML = '';
-            result.data.forEach(player => {
-              const option = document.createElement('option');
-              option.value = player.name;
-              option.dataset.playerId = player.playerId;
-              playerNameList.appendChild(option);
-            });
-          })
-          .catch(error => {
-            console.error('Error fetching player names for autocomplete:', error);
+        .then(result => {
+          playerNameList.innerHTML = '';
+          result.data.forEach(player => {
+            const option = document.createElement('option');
+            option.value = player.name;
+            option.dataset.playerId = player.playerId;
+            playerNameList.appendChild(option);
           });
+        })
+        .catch(error => {
+          console.error('Error fetching player names for autocomplete:', error);
+        });
     }
   });
 
@@ -274,18 +274,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const query = clubNameInput.value;
     if (query.length >= 2) { // Fetch suggestions if input length is greater than or equal to 2
       axios.get(`${baseUrl}clubs/search/name?name=${query}`)
-          .then(result => {
-            clubNameList.innerHTML = '';
-            result.data.forEach(club => {
-              const option = document.createElement('option');
-              option.value = club.name;
-              option.dataset.clubId = club.clubId;
-              clubNameList.appendChild(option);
-            });
-          })
-          .catch(error => {
-            console.error('Error fetching club names for autocomplete:', error);
+        .then(result => {
+          clubNameList.innerHTML = '';
+          result.data.forEach(club => {
+            const option = document.createElement('option');
+            option.value = club.name;
+            option.dataset.clubId = club.clubId;
+            clubNameList.appendChild(option);
           });
+        })
+        .catch(error => {
+          console.error('Error fetching club names for autocomplete:', error);
+        });
     }
   });
 
@@ -293,7 +293,6 @@ document.addEventListener('DOMContentLoaded', function () {
   refreshPlayerValuations();
 
 
-  
+
 
 });
-  
