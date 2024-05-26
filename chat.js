@@ -53,12 +53,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Listen for chat-message event
-    socket.on('chat-message', function (message) {
-        outputMessage(message);
-        playNotificationSound();
-    });
-
     // Output message to the chat component
     function outputMessage(message) {
         if (room !== message.room) return;
@@ -75,6 +69,32 @@ document.addEventListener('DOMContentLoaded', function () {
         audio.play();
     }
 
+    // Show intermittent color change and exlamation mark on openChatBtn when a new notification is received
+    // do that only if the chat is hidden (chatComponent.style.display === 'none') and until the user opens the chat
+    // When the user opens the chat, the color change and exlamation mark should disappear and the openChatBtn should be back to the previous state
+    function showNotification() {
+        if (chatComponent.style.display === 'none') {
+            let count = 0;
+            const interval = setInterval(function () {
+                openChatBtn.style.backgroundColor = count % 2 === 0 ? 'red' : '';
+                openChatBtn.textContent = count % 2 === 0 ? '❕' : '✉️';
+                count++;
+            }, 500);
+            setInterval(function () {
+                if (chatComponent.style.display != 'none'){
+
+                    clearInterval(interval);
+                    openChatBtn.style.backgroundColor = '';
+                    openChatBtn.textContent = '✉️';
+                }
+            }, 200);
+        }
+    }
+    
+    
+    
+
+
     // Connect to the server using socket.io
     const socket = io("http://localhost:3000", {
         path: "/socket-io/",
@@ -83,5 +103,12 @@ document.addEventListener('DOMContentLoaded', function () {
             origin: "http://localhost:3000",
             credentials: true
         }
+    });
+
+    // Listen for chat-message event
+    socket.on('chat-message', function (message) {
+        outputMessage(message);
+        playNotificationSound();
+        showNotification();
     });
 });

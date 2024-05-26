@@ -28,7 +28,7 @@
           <a class="nav-link" href="#" onclick="loadClubs()">Clubs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./register.html">Registration</a>
+          <a class="nav-link" href="./register.html">Register</a>
         </li>
         <!-- Other menu items for navigating other parts of the API? -->
       </ul>
@@ -251,22 +251,23 @@
 
 
     <!-- Chat Component -->
-    <div id="chatComponent" class="chat-component">
-      <div class="chat-header">
+    <div id="chatComponent" class="chat-component" aria-labelledby="chatHeader" role="dialog">
+      <div class="chat-header" id="chatHeader">
         <h3>Chat</h3>
-        <button id="closeChatBtn" class="btn">✖️</button>
+        <button id="closeChatBtn" class="btn" aria-label="Close Chat">✖️</button>
       </div>
       <div class="chat-body">
         <div id="messageArea" class="message-area"></div>
-        <input type="text" id="messageInput" placeholder="Type your message">
-        <button id="sendMessageBtn" class="btn btn-primary">⬆️</button>
+        <input type="text" id="messageInput" placeholder="Type your message" aria-label="Message input">
+        <button id="sendMessageBtn" class="btn btn-primary" aria-label="Send message">⬆️</button>
       </div>
     </div>
     <!-- Chat Icon Button -->
-    <button id="openChatBtn" class="chat-icon-btn">💬</button>
+    <button id="openChatBtn" class="chat-icon-btn" aria-label="Open chat">💬</button>
   </main>
-  <!-- Footer -->
 
+
+  <!-- Footer -->
   <footer class="bg-dark text-white text-center py-3 mt-5">
     <div class="container">
       <p>&copy; 2024 IUM Dashboard. All rights reserved.</p>
