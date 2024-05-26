@@ -8,6 +8,30 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="chat.css">
     <link rel="stylesheet" href="base_style.css">
+    <style>
+        /* Custom styles for https://www.w3.org/WAI/WCAG21/Techniques/css/C38 this should not be needed since
+        bootstrap already define them, but the validator still wants them for some reason..*/
+        .form-control {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        .form-group {
+            width: 100%;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .d-flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .flex-column {
+            flex-direction: column;
+        }
+        .flex-grow-1 {
+            flex-grow: 1;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
@@ -18,7 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Player Valuations</a>
+                    <a class="nav-link" href="./player-valuations.html">Player Valuations</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Registration</a>
