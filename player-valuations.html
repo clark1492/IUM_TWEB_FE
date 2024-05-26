@@ -8,11 +8,11 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <!--<link rel="stylesheet" href="style.css">-->
   <link rel="stylesheet" href="chat.css">
-
+  <link rel="stylesheet" href="base_style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">SPA Dashboard</a>
+  <a class="navbar-brand" href="#">IUM Dashboard</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
           aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -22,14 +22,18 @@
       <li class="nav-item active">
         <a class="nav-link" href="#" onclick="loadPlayerValuations()">Player Valuations</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="#" onclick="loadClubs()">Clubs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./register.html">Registration</a>
       </li>
       <!-- Other menu items for navigating other parts of the API? -->
     </ul>
   </div>
 </nav>
 
+<main>
 <div class="row">
   <!-- Filters -->
   <div class="col-md-3">
@@ -255,6 +259,21 @@
 </div>
 <!-- Chat Icon Button -->
 <button id="openChatBtn" class="chat-icon-btn">💬</button>
+</main>
+<!-- Footer -->
+
+<footer class="bg-dark text-white text-center py-3 mt-5">
+  <div class="container">
+    <p>&copy; 2024 IUM Dashboard. All rights reserved.</p>
+    <p>Contact: claudio.gesposito@hotmail.it | Phone: +123 456 7890</p>
+  </div>
+</footer>
+
+
+<audio id="notificationSound">
+  <source src="./assets/audio/pop-alert.mp3" type="audio/mpeg">
+  Your browser does not support the audio element!
+</audio>
 
 
 <!-- Bootstrap JS and Axios -->
@@ -264,11 +283,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <!-- Custom JavaScript -->
 <script src="app.js"></script>
-
-<audio id="notificationSound">
-  <source src="./assets/audio/pop-alert.mp3" type="audio/mpeg">
-  Your browser does not support the audio element!
-</audio>
+<script src="chat.js"></script>
 
 <!-- socket.io -->
 <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
