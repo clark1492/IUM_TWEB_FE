@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUMTWEB Registration</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="chat.css">
+    <link rel="stylesheet" href="base_style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
+        <a class="navbar-brand" href="#">IUM Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Player Valuations</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Registration</a>
+                </li>
+                <!-- Other menu items for navigating other parts of the API? -->
+            </ul>
+        </div>
+    </nav>
+
+    <main class="flex-grow-1" role="main">
+        <div class="container">
+            <div class="d-flex flex-column">
+                <h1>IUM Dashboard</h1>
+                <h2>Register</h2>
+            </div>
+            <div class="d-flex flex-column flex-grow-1">
+                <form id="registrationForm" class="d-flex flex-column" aria-labelledby="formTitle">
+                    <h3 id="formTitle" class="sr-only">Registration Form</h3>
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" class="form-control" id="firstName" aria-describedby="firstNameHelp" placeholder="Enter first name" autocomplete="given-name" required>
+                        <small id="firstNameHelp" class="form-text text-muted">Your first name.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" class="form-control" id="lastName" aria-describedby="lastNameHelp" placeholder="Enter last name" autocomplete="family-name" required>
+                        <small id="lastNameHelp" class="form-text text-muted">Your last name.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth:</label>
+                        <input type="date" class="form-control" id="dateOfBirth" aria-describedby="dateOfBirthHelp">
+                        <small id="dateOfBirthHelp" class="form-text text-muted">Your date of birth.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username" autocomplete="username" required>
+                        <small id="usernameHelp" class="form-text text-muted">Your username must be unique.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" autocomplete="email" required>
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" autocomplete="new-password" placeholder="Password" aria-describedby="passwordHelp" required>
+                        <small id="passwordHelp" class="form-text text-muted">We suggest you use a strong and unique password.</small>
+                    </div>
+                    <div class="form-group">
+                        <fieldset>
+                            <legend>I accept to</legend>
+                            <div>
+                                <input type="checkbox" name="tos" id="check_tos" required>
+                                <label for="check_tos">
+                                    Have read and accept the
+                                    <a href="#">Tos</a>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="newsletter" id="check_news">
+                                <label for="check_news">To receive the weekly newsletter</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Register</button>
+                </form>
+            </div>
+            <div id="successMessage" class="alert alert-success mt-3" role="status" aria-live="polite" style="display: none;">
+                Registration successful!
+            </div>
+        </div>
+
+        <div id="chatComponent" class="chat-component" aria-labelledby="chatHeader" role="dialog">
+            <div class="chat-header" id="chatHeader">
+                <h3>Chat</h3>
+                <button id="closeChatBtn" class="btn" aria-label="Close Chat">✖️</button>
+            </div>
+            <div class="chat-body">
+                <div id="messageArea" class="message-area"></div>
+                <label for="messageInput" class="sr-only">Type your message</label>
+                <input type="text" id="messageInput" placeholder="Type your message" aria-label="Message input" autocomplete="off">
+                <button id="sendMessageBtn" class="btn btn-primary" aria-label="Send message">⬆️</button>
+            </div>
+        </div>
+        <!-- Chat Icon Button -->
+        <button id="openChatBtn" class="chat-icon-btn" aria-label="Open chat">✉</button>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5" role="contentinfo">
+        <div class="container">
+            <p>© 2024 IUM Dashboard. All rights reserved.</p>
+            <p>Contact: claudio.gesposito@hotmail.it | Phone: +123 456 7890</p>
+        </div>
+    </footer>
+
+    <audio id="notificationSound" aria-label="Notification sound">
+        <source src="./assets/audio/pop-alert.mp3" type="audio/mpeg">
+        Your browser does not support the audio element. This is a notification sound used for chat messages.
+    </audio>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="chat.js"></script>
+    <script src="register.js"></script>
+</body>
+</html>
