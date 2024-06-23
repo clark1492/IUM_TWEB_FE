@@ -38,46 +38,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const dateEnd = seasonSelection.options[seasonSelection.selectedIndex].getAttribute("data-end");
         let valuations = [];
         if(queryName){
-          axios.get(`${baseUrl}players/search/name/position?name=${queryName}&positon=${queryPosition}&startdate=${dateStart}&enddate=${dateEnd}`)
+          axios.get(`${baseUrl}players/search/info?name=${queryName}&position=${queryPosition}&start=${dateStart}&end=${dateEnd}`)
               .then(resultPlayer => {
-                renderPlayerValuations(valuations);
-                if(resultPlayer){
-                  resultPlayer.data.forEach(player => {
-                    axios.get(`${baseUrl}game-appearances/playerid/startdate/enddate?playerid=${player.playerId}&startdate=${dateStart}&enddate=${dateEnd}`)
-                        .then(resultApp => {
-                          if(resultApp) {
-                            resultApp.data.forEach(gameAppearance => {
-                              axios.get(`${baseUrl}clubs/${gameAppearance.player_club_id}`)
-                                  .then(resultClub => {
-                                    let playerValuation = {
-                                      "player_id": player.playerId,
-                                      "player_name": player.name,
-                                      "position": player.position,
-                                      "market_value": player.marketValueInEur,
-                                      "club_name": resultClub.data.name,
-                                      "club_id": gameAppearance.player_club_id,
-                                      "yellow_cards": gameAppearance.yellow_cards,
-                                      "red_cards": gameAppearance.red_cards,
-                                      "goals": gameAppearance.goals,
-                                      "assists": gameAppearance.assists,
-                                      "minutes_played": gameAppearance.minutes_played,
-                                      "appearances": gameAppearance.appearances
-                                    }
-                                    valuations.push(playerValuation);
-                                    renderPlayerValuations(valuations);
-                                  }).catch(error => console.error("Error fetching clubs:", error));
-                            })
-                          }
-                        }).catch(error => console.error('Error fetching players:', error));
-                  })
-                }
+                renderPlayerValuations(resultPlayer.data);
               }).catch(error => console.error('Error fetching game-appearance:', error));
         }
         else {
           axios.get(`${baseUrl}game-appearances/playerid/startdate/enddate?startdate=${dateStart}&enddate=${dateEnd}`)
               .then(resultApp => {
                 resultApp.data.forEach(gameAppearance => {
-                  axios.get(`${baseUrl}players/search/name/position?name=${gameAppearance.player_name}&positon=${queryPosition}`)
+                  axios.get(`${baseUrl}players/search/name/position?name=${gameAppearance.player_name}&position=${queryPosition}`)
                       .then(resultPlayer => {
                         if(resultPlayer) {
                           resultPlayer.data.forEach(player => {
