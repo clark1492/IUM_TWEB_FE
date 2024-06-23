@@ -6,393 +6,399 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IUMTWEB Dashboard</title>
   <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <!--<link rel="stylesheet" href="style.css">-->
   <link rel="stylesheet" href="chat.css">
   <link rel="stylesheet" href="base_style.css">
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">IUM Dashboard</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#" onclick="loadPlayerValuations()">Player Valuations</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" onclick="loadClubs()">Clubs</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="./register.html">Register</a>
-      </li>
-      <!-- Other menu items for navigating other parts of the API? -->
-    </ul>
-  </div>
-</nav>
-
-<main >
-  <div class="row">
-    <!-- Filters -->
-    <div class="col-md-6">
-      <!-- Filters Form -->
-      <form id="searchForm">
-        <!-- Position Selection -->
-        <select class="form-select" id="positionSelection" aria-label="Default select example">
-          <option selected value="">Position</option>
-          <option value="Attack">Attack</option>
-          <option value="Goalkeeper">Goalkeeper</option>
-          <option value="Midfield">Midfield</option>
-          <option value="Defender">Defender</option>
-        </select>
-        <!-- Season Selection -->
-        <select class="form-select" id="seasonSelection" aria-label="Default select example">
-          <option selected data-start="2023-08-20" data-end="2024-08-19" data-season = 2023>2023/2024</option>
-          <option data-start="2022-08-20" data-end="2023-08-19" data-season = 2022>2022/2023</option>
-          <option data-start="2021-08-20" data-end="2022-08-19" data-season = 2021>2021/2022</option>
-          <option data-start="2020-08-20" data-end="2021-08-19" data-season = 2020>2020/2021</option>
-          <option data-start="2019-08-20" data-end="2020-08-19" data-season = 2019>2019/2020</option>
-          <option data-start="2018-08-20" data-end="2019-08-19" data-season = 2018>2018/2019</option>
-          <option data-start="2017-08-20" data-end="2018-08-19" data-season = 2017>2017/2018</option>
-          <option data-start="2016-08-20" data-end="2017-08-19" data-season = 2016>2016/2017</option>
-          <option data-start="2015-08-20" data-end="2016-08-19" data-season = 2015>2015/2016</option>
-          <option data-start="2014-08-20" data-end="2015-08-19" data-season = 2014>2014/2015</option>
-          <option data-start="2013-08-20" data-end="2014-08-19" data-season = 2013>2013/2014</option>
-        </select>
-        <!-- Search Field -->
-        <div class="input-group mb-3">
-          <select class="form-select" id="paramSearch" aria-label="Default select example">
-            <option selected value="1">Player</option>
-            <option value="2">Club</option>
-          </select>
-          <input type="text" class="form-control" aria-label="Text input with dropdown button">
-        </div>
-      </form>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">IUM Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="./player-valuations.html">Player Valuations</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#" onclick="loadClubs()">Clubs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./register.html">Register</a>
+        </li>
+        <!-- Other menu items for navigating other parts of the API? -->
+      </ul>
     </div>
-  </div>
+  </nav>
 
-  <div class="col-mt-5">
-    <!-- Player Valuations Table -->
-    <table id="playerValuationsTable" class="table">
-      <thead>
-      <tr>
-        <th>Position</th>
-        <th>Player</th>
-        <th>Club</th>
-        <th>Market Value (EUR)</th>
-        <th>Red Cards 🟥</th>
-        <th>Yellow Cards 🟨</th>
-        <th>Assist</th>
-        <th>Goals</th>
-        <th>Minutes played</th>
-        <th>Appearances</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- Player Valuations will be inserted here -->
-      </tbody>
-    </table>
-  </div>
+  <main>
+    <div class="d-flex flex-row align-items-center ">
+      <!-- Filters -->
+      <div class="align-items-center flex-wrap">
+        <legend>Filters</legend>
+        <!-- Filters Form -->
+        <form id="searchForm">
+          <div class="input-group mt-4 mb-4">
+            <!-- Position Selection -->
+            <select class="form-select my-1 me-sm-2 w-auto" id="positionSelection" aria-label="Default select example">
+              <option selected="" value="">Position</option>
+              <option value="Attack">Attack</option>
+              <option value="Goalkeeper">Goalkeeper</option>
+              <option value="Midfield">Midfield</option>
+              <option value="Defender">Defender</option>
+            </select>
+            <!-- Season Selection -->
+            <select class="form-select my-1 me-sm-2 w-auto" id="seasonSelection" aria-label="Default select example">
+              <option selected="" data-start="2023-08-20" data-end="2024-08-19" data-season="2023">2023/2024</option>
+              <option data-start="2022-08-20" data-end="2023-08-19" data-season="2022">2022/2023</option>
+              <option data-start="2021-08-20" data-end="2022-08-19" data-season="2021">2021/2022</option>
+              <option data-start="2020-08-20" data-end="2021-08-19" data-season="2020">2020/2021</option>
+              <option data-start="2019-08-20" data-end="2020-08-19" data-season="2019">2019/2020</option>
+              <option data-start="2018-08-20" data-end="2019-08-19" data-season="2018">2018/2019</option>
+              <option data-start="2017-08-20" data-end="2018-08-19" data-season="2017">2017/2018</option>
+              <option data-start="2016-08-20" data-end="2017-08-19" data-season="2016">2016/2017</option>
+              <option data-start="2015-08-20" data-end="2016-08-19" data-season="2015">2015/2016</option>
+              <option data-start="2014-08-20" data-end="2015-08-19" data-season="2014">2014/2015</option>
+              <option data-start="2013-08-20" data-end="2014-08-19" data-season="2013">2013/2014</option>
+            </select>
+            <!-- Search Field -->
+            <select class="form-select my-1 me-sm-2 w-auto" id="paramSearch" aria-label="Select club or player">
+              <option selected="" value="1">Player</option>
+              <option value="2">Club</option>
+            </select>
+            <input type="text" class="form-control my-1 me-sm-2 w-auto" aria-label="Search by player or club"
+              placeholder="Name of player or club">
 
-  <!-- Edit Club Info Model -->
-  <div class="modal fade" id="editClubModal" tabindex="-1" role="dialog" aria-labelledby="editClubModalLabel"
-       aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editClubModalLabel">Edit Club </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="editClubForm">
-            <div class="form-group">
-              <label for="editName">Name:</label>
-              <input type="text" class="form-control" id="editName" placeholder="Enter Club name">
-            </div>
-            <div class="form-group">
-              <label for="editClubCode">Club code:</label>
-              <input type="text" class="form-control" id="editClubCode" placeholder="Enter Club code">
-            </div>
-            <div class="form-group">
-              <label for="editDomesticCompetitionId">Domestic Competition id:</label>
-              <input type="text" class="form-control" id="editDomesticCompetitionId" placeholder="Enter Domestic Competition Id">
-            </div>
-            <div class="form-group">
-              <label for="editTotalMarketValue">Total Market Value:</label>
-              <input type="text" class="form-control" id="editTotalMarketValue"
-                     placeholder="Enter total market value">
-            </div>
-            <div class="form-group">
-              <label for="editSquadSize">Squad size:</label>
-              <input type="text" class="form-control" id="editSquadSize" placeholder="Enter squad size">
-            </div>
-            <div class="form-group">
-              <label for="editAverageAge">Average age:</label>
-              <input type="text" class="form-control" id="editAverageAge" placeholder="Enter average age">
-            </div>
-            <div class="form-group">
-              <label for="editForeignersNumber">Foreigners Number:</label>
-              <input type="text" class="form-control" id="editForeignersNumber" placeholder="Enter foreigners number">
-            </div>
-            <div class="form-group">
-              <label for="editForeignersPercentage">Foreigners Percentage:</label>
-              <input type="text" class="form-control" id="editForeignersPercentage"
-                     placeholder="Enter foreigners percentage">
-            </div>
-            <div class="form-group">
-              <label for="editNationalTeamPlayers">National Team Players:</label>
-              <input type="text" class="form-control" id="editNationalTeamPlayers" placeholder="Enter national team players">
-            </div>
-            <div class="form-group">
-              <label for="editStadiumName">Stadium Name:</label>
-              <input type="text" class="form-control" id="editStadiumName" placeholder="Enter stadium name">
-            </div>
-            <div class="form-group">
-              <label for="editStadiumSeats">Stadium Seats:</label>
-              <input type="text" class="form-control" id="editStadiumSeats" placeholder="Enter stadium seats">
-            </div>
-            <div class="form-group">
-              <label for="editNetTransferRecord">Net Transfer Record:</label>
-              <input type="text" class="form-control" id="editNetTransferRecord" placeholder="Enter net transfer record">
-            </div>
-            <div class="form-group">
-              <label for="editCoachName">Coach Name:</label>
-              <input type="text" class="form-control" id="editCoachName" placeholder="Enter coach name">
-            </div>
-            <div class="form-group">
-              <label for="editLastSeasonClub">Last Season:</label>
-              <input type="text" class="form-control" id="editLastSeasonClub"
-                     placeholder="Enter last season">
-            </div>
-            <div class="form-group">
-              <label for="editUrlClub">Url:</label>
-              <input type="text" class="form-control" id="editUrlClub"
-                     placeholder="Enter url">
-            </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-          </form>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-mt-5">
+      <!-- Player Valuations Table -->
+      <table id="playerValuationsTable" class="table">
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Player</th>
+            <th>Club</th>
+            <th>Market Value (EUR)</th>
+            <th>Red Cards 🟥</th>
+            <th>Yellow Cards 🟨</th>
+            <th>Assist</th>
+            <th>Goals</th>
+            <th>Minutes played</th>
+            <th>Appearances</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Player Valuations will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Edit Club Info Model -->
+    <div class="modal fade" id="editClubModal" tabindex="-1" role="dialog" aria-labelledby="editClubModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editClubModalLabel">Edit Club </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="editClubForm">
+              <div class="form-group">
+                <label for="editName">Name:</label>
+                <input type="text" class="form-control" id="editName" placeholder="Enter Club name">
+              </div>
+              <div class="form-group">
+                <label for="editClubCode">Club code:</label>
+                <input type="text" class="form-control" id="editClubCode" placeholder="Enter Club code">
+              </div>
+              <div class="form-group">
+                <label for="editDomesticCompetitionId">Domestic Competition id:</label>
+                <input type="text" class="form-control" id="editDomesticCompetitionId"
+                  placeholder="Enter Domestic Competition Id">
+              </div>
+              <div class="form-group">
+                <label for="editTotalMarketValue">Total Market Value:</label>
+                <input type="text" class="form-control" id="editTotalMarketValue"
+                  placeholder="Enter total market value">
+              </div>
+              <div class="form-group">
+                <label for="editSquadSize">Squad size:</label>
+                <input type="text" class="form-control" id="editSquadSize" placeholder="Enter squad size">
+              </div>
+              <div class="form-group">
+                <label for="editAverageAge">Average age:</label>
+                <input type="text" class="form-control" id="editAverageAge" placeholder="Enter average age">
+              </div>
+              <div class="form-group">
+                <label for="editForeignersNumber">Foreigners Number:</label>
+                <input type="text" class="form-control" id="editForeignersNumber" placeholder="Enter foreigners number">
+              </div>
+              <div class="form-group">
+                <label for="editForeignersPercentage">Foreigners Percentage:</label>
+                <input type="text" class="form-control" id="editForeignersPercentage"
+                  placeholder="Enter foreigners percentage">
+              </div>
+              <div class="form-group">
+                <label for="editNationalTeamPlayers">National Team Players:</label>
+                <input type="text" class="form-control" id="editNationalTeamPlayers"
+                  placeholder="Enter national team players">
+              </div>
+              <div class="form-group">
+                <label for="editStadiumName">Stadium Name:</label>
+                <input type="text" class="form-control" id="editStadiumName" placeholder="Enter stadium name">
+              </div>
+              <div class="form-group">
+                <label for="editStadiumSeats">Stadium Seats:</label>
+                <input type="text" class="form-control" id="editStadiumSeats" placeholder="Enter stadium seats">
+              </div>
+              <div class="form-group">
+                <label for="editNetTransferRecord">Net Transfer Record:</label>
+                <input type="text" class="form-control" id="editNetTransferRecord"
+                  placeholder="Enter net transfer record">
+              </div>
+              <div class="form-group">
+                <label for="editCoachName">Coach Name:</label>
+                <input type="text" class="form-control" id="editCoachName" placeholder="Enter coach name">
+              </div>
+              <div class="form-group">
+                <label for="editLastSeasonClub">Last Season:</label>
+                <input type="text" class="form-control" id="editLastSeasonClub" placeholder="Enter last season">
+              </div>
+              <div class="form-group">
+                <label for="editUrlClub">Url:</label>
+                <input type="text" class="form-control" id="editUrlClub" placeholder="Enter url">
+              </div>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Edit Player Valuation Modal -->
-  <div class="modal fade" id="editPlayerValuationModal" tabindex="-1" role="dialog"
-       aria-labelledby="editPlayerValuationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editPlayerValuationModalLabel">Edit Player Valuation</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="editPlayerValuationForm">
-            <div class="form-group">
-              <label for="editLastSeason">Last Season:</label>
-              <input type="text" class="form-control" id="editLastSeason" placeholder="Enter Last Season">
-            </div>
-            <div class="form-group">
-              <label for="editDatetime">Datetime:</label>
-              <input type="datetime-local" class="form-control" id="editDatetime" placeholder="Enter Datetime">
-            </div>
-            <div class="form-group">
-              <label for="editDateWeek">Dateweek:</label>
-              <input type="text" class="form-control" id="editDateWeek" placeholder="Enter DateWeek">
-            </div>
-            <div class="form-group">
-              <label for="editMarketValue">Market Value (EUR):</label>
-              <input type="text" class="form-control" id="editMarketValue" placeholder="Enter Market Value">
-            </div>
-            <div class="form-group">
-              <label for="editN">N:</label>
-              <input type="number" class="form-control" id="editN" placeholder="Enter N">
-            </div>
-            <div class="form-group">
-              <label for="editCurrentClubId">Current Club ID:</label>
-              <input type="text" class="form-control" id="editCurrentClubId" placeholder="Enter Current Club ID">
-            </div>
-            <div class="form-group">
-              <label for="editPlayerClubDomesticCompetitionId">Player Club Domestic Competition ID:</label>
-              <input type="text" class="form-control" id="editPlayerClubDomesticCompetitionId"
-                     placeholder="Enter Player Club Domestic Competition ID">
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" id="editPlayerId" placeholder="Enter Player ID" hidden="true">
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" id="editDate" placeholder="Enter Date" hidden="true">
-            </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Info Player Modal -->
-  <div class="modal fade" id="editPlayerModal" tabindex="-1" role="dialog" aria-labelledby="editPlayerModalLabel"
-       aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editPlayerModalLabel">Edit Player </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="editPlayerForm">
-            <div class="form-group">
-              <label for="editFirstName">First name:</label>
-              <input type="text" class="form-control" id="editFirstName" placeholder="Enter first name">
-            </div>
-            <div class="form-group">
-              <label for="editLastName">Last name:</label>
-              <input type="text" class="form-control" id="editLastName" placeholder="Enter last name">
-            </div>
-            <div class="form-group">
-              <label for="editLastSeasonPlayer">Last season:</label>
-              <input type="text" class="form-control" id="editLastSeasonPlayer" placeholder="Enter last season">
-            </div>
-            <div class="form-group">
-              <label for="editCurrentClubIdPlayer">Current Club id:</label>
-              <input type="text" class="form-control" id="editCurrentClubIdPlayer"
-                     placeholder="Enter current club id">
-            </div>
-            <div class="form-group">
-              <label for="editPlayerCode">Player code:</label>
-              <input type="text" class="form-control" id="editPlayerCode" placeholder="Enter player code">
-            </div>
-            <div class="form-group">
-              <label for="editCountryOfBirth">Country of birth:</label>
-              <input type="text" class="form-control" id="editCountryOfBirth" placeholder="Enter country of birth">
-            </div>
-            <div class="form-group">
-              <label for="editCityOfBirth">City of birth:</label>
-              <input type="text" class="form-control" id="editCityOfBirth" placeholder="Enter city of birth">
-            </div>
-            <div class="form-group">
-              <label for="editCountryOfCitizenship">Country of citizenship:</label>
-              <input type="text" class="form-control" id="editCountryOfCitizenship"
-                     placeholder="Enter country of citizenship">
-            </div>
-            <div class="form-group">
-              <label for="editDateOfBirth">Date of birth:</label>
-              <input type="text" class="form-control" id="editDateOfBirth" placeholder="Enter date of birth">
-            </div>
-            <div class="form-group">
-              <label for="editSubPosition">Sub position:</label>
-              <input type="text" class="form-control" id="editSubPosition" placeholder="Enter sub position">
-            </div>
-            <div class="form-group">
-              <label for="editPosition">Position:</label>
-              <input type="text" class="form-control" id="editPosition" placeholder="Enter position">
-            </div>
-            <div class="form-group">
-              <label for="editFoot">Foot:</label>
-              <input type="text" class="form-control" id="editFoot" placeholder="Enter foot">
-            </div>
-            <div class="form-group">
-              <label for="editHeightInCm">Height in cm:</label>
-              <input type="text" class="form-control" id="editHeightInCm" placeholder="Enter height in cm">
-            </div>
-            <div class="form-group">
-              <label for="editMarketValueInEur">Market value in eur:</label>
-              <input type="text" class="form-control" id="editMarketValueInEur"
-                     placeholder="Enter market value in eur">
-            </div>
-            <div class="form-group">
-              <label for="editHighestMarketValueInEur">Highest market value in eur:</label>
-              <input type="text" class="form-control" id="editHighestMarketValueInEur"
-                     placeholder="Enter highest market value in eur">
-            </div>
-            <div class="form-group">
-              <label for="editContractExpirationDate">Contract expiration date:</label>
-              <input type="text" class="form-control" id="editContractExpirationDate"
-                     placeholder="Enter contract expiration date">
-            </div>
-            <div class="form-group">
-              <label for="editAgentName">Agent name:</label>
-              <input type="text" class="form-control" id="editAgentName" placeholder="Enter agent name">
-            </div>
-            <div class="form-group">
-              <label for="editImageUrl">Image url:</label>
-              <input type="text" class="form-control" id="editImageUrl" placeholder="Enter image url">
-            </div>
-            <div class="form-group">
-              <label for="editUrl">Url:</label>
-              <input type="text" class="form-control" id="editUrl" placeholder="Enter url">
-            </div>
-            <div class="form-group">
-              <label for="editCurrentClubDomesticCompetitionId">Current club domestic competition Id:</label>
-              <input type="text" class="form-control" id="editCurrentClubDomesticCompetitionId"
-                     placeholder="Enter current club domestic competition Id">
-            </div>
-            <div class="form-group">
-              <label for="editCurrentClubName">Current club name:</label>
-              <input type="text" class="form-control" id="editCurrentClubName" placeholder="Enter current club name">
-            </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-          </form>
+    <!-- Edit Player Valuation Modal -->
+    <div class="modal fade" id="editPlayerValuationModal" tabindex="-1" role="dialog"
+      aria-labelledby="editPlayerValuationModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editPlayerValuationModalLabel">Edit Player Valuation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="editPlayerValuationForm">
+              <div class="form-group">
+                <label for="editLastSeason">Last Season:</label>
+                <input type="text" class="form-control" id="editLastSeason" placeholder="Enter Last Season">
+              </div>
+              <div class="form-group">
+                <label for="editDatetime">Datetime:</label>
+                <input type="datetime-local" class="form-control" id="editDatetime" placeholder="Enter Datetime">
+              </div>
+              <div class="form-group">
+                <label for="editDateWeek">Dateweek:</label>
+                <input type="text" class="form-control" id="editDateWeek" placeholder="Enter DateWeek">
+              </div>
+              <div class="form-group">
+                <label for="editMarketValue">Market Value (EUR):</label>
+                <input type="text" class="form-control" id="editMarketValue" placeholder="Enter Market Value">
+              </div>
+              <div class="form-group">
+                <label for="editN">N:</label>
+                <input type="number" class="form-control" id="editN" placeholder="Enter N">
+              </div>
+              <div class="form-group">
+                <label for="editCurrentClubId">Current Club ID:</label>
+                <input type="text" class="form-control" id="editCurrentClubId" placeholder="Enter Current Club ID">
+              </div>
+              <div class="form-group">
+                <label for="editPlayerClubDomesticCompetitionId">Player Club Domestic Competition ID:</label>
+                <input type="text" class="form-control" id="editPlayerClubDomesticCompetitionId"
+                  placeholder="Enter Player Club Domestic Competition ID">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="editPlayerId" placeholder="Enter Player ID" hidden="true">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="editDate" placeholder="Enter Date" hidden="true">
+              </div>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-
-  <!-- Chat Component -->
-  <div id="chatComponent" class="chat-component" aria-labelledby="chatHeader" role="dialog">
-    <div class="chat-header" id="chatHeader">
-      <h3>Chat</h3>
-      <button id="closeChatBtn" class="btn" aria-label="Close Chat">✖️</button>
+    <!-- Info Player Modal -->
+    <div class="modal fade" id="editPlayerModal" tabindex="-1" role="dialog" aria-labelledby="editPlayerModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editPlayerModalLabel">Edit Player </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="editPlayerForm">
+              <div class="form-group">
+                <label for="editFirstName">First name:</label>
+                <input type="text" class="form-control" id="editFirstName" placeholder="Enter first name">
+              </div>
+              <div class="form-group">
+                <label for="editLastName">Last name:</label>
+                <input type="text" class="form-control" id="editLastName" placeholder="Enter last name">
+              </div>
+              <div class="form-group">
+                <label for="editLastSeasonPlayer">Last season:</label>
+                <input type="text" class="form-control" id="editLastSeasonPlayer" placeholder="Enter last season">
+              </div>
+              <div class="form-group">
+                <label for="editCurrentClubIdPlayer">Current Club id:</label>
+                <input type="text" class="form-control" id="editCurrentClubIdPlayer"
+                  placeholder="Enter current club id">
+              </div>
+              <div class="form-group">
+                <label for="editPlayerCode">Player code:</label>
+                <input type="text" class="form-control" id="editPlayerCode" placeholder="Enter player code">
+              </div>
+              <div class="form-group">
+                <label for="editCountryOfBirth">Country of birth:</label>
+                <input type="text" class="form-control" id="editCountryOfBirth" placeholder="Enter country of birth">
+              </div>
+              <div class="form-group">
+                <label for="editCityOfBirth">City of birth:</label>
+                <input type="text" class="form-control" id="editCityOfBirth" placeholder="Enter city of birth">
+              </div>
+              <div class="form-group">
+                <label for="editCountryOfCitizenship">Country of citizenship:</label>
+                <input type="text" class="form-control" id="editCountryOfCitizenship"
+                  placeholder="Enter country of citizenship">
+              </div>
+              <div class="form-group">
+                <label for="editDateOfBirth">Date of birth:</label>
+                <input type="text" class="form-control" id="editDateOfBirth" placeholder="Enter date of birth">
+              </div>
+              <div class="form-group">
+                <label for="editSubPosition">Sub position:</label>
+                <input type="text" class="form-control" id="editSubPosition" placeholder="Enter sub position">
+              </div>
+              <div class="form-group">
+                <label for="editPosition">Position:</label>
+                <input type="text" class="form-control" id="editPosition" placeholder="Enter position">
+              </div>
+              <div class="form-group">
+                <label for="editFoot">Foot:</label>
+                <input type="text" class="form-control" id="editFoot" placeholder="Enter foot">
+              </div>
+              <div class="form-group">
+                <label for="editHeightInCm">Height in cm:</label>
+                <input type="text" class="form-control" id="editHeightInCm" placeholder="Enter height in cm">
+              </div>
+              <div class="form-group">
+                <label for="editMarketValueInEur">Market value in eur:</label>
+                <input type="text" class="form-control" id="editMarketValueInEur"
+                  placeholder="Enter market value in eur">
+              </div>
+              <div class="form-group">
+                <label for="editHighestMarketValueInEur">Highest market value in eur:</label>
+                <input type="text" class="form-control" id="editHighestMarketValueInEur"
+                  placeholder="Enter highest market value in eur">
+              </div>
+              <div class="form-group">
+                <label for="editContractExpirationDate">Contract expiration date:</label>
+                <input type="text" class="form-control" id="editContractExpirationDate"
+                  placeholder="Enter contract expiration date">
+              </div>
+              <div class="form-group">
+                <label for="editAgentName">Agent name:</label>
+                <input type="text" class="form-control" id="editAgentName" placeholder="Enter agent name">
+              </div>
+              <div class="form-group">
+                <label for="editImageUrl">Image url:</label>
+                <input type="text" class="form-control" id="editImageUrl" placeholder="Enter image url">
+              </div>
+              <div class="form-group">
+                <label for="editUrl">Url:</label>
+                <input type="text" class="form-control" id="editUrl" placeholder="Enter url">
+              </div>
+              <div class="form-group">
+                <label for="editCurrentClubDomesticCompetitionId">Current club domestic competition Id:</label>
+                <input type="text" class="form-control" id="editCurrentClubDomesticCompetitionId"
+                  placeholder="Enter current club domestic competition Id">
+              </div>
+              <div class="form-group">
+                <label for="editCurrentClubName">Current club name:</label>
+                <input type="text" class="form-control" id="editCurrentClubName" placeholder="Enter current club name">
+              </div>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="chat-body">
-      <div id="messageArea" class="message-area"></div>
-      <input type="text" id="messageInput" placeholder="Type your message" aria-label="Message input">
-      <button id="sendMessageBtn" class="btn btn-primary" aria-label="Send message">⬆️</button>
+
+
+    <!-- Chat Component -->
+    <div id="chatComponent" class="chat-component" aria-labelledby="chatHeader" role="dialog">
+      <div class="chat-header" id="chatHeader">
+        <h3>Chat</h3>
+        <button id="closeChatBtn" class="btn" aria-label="Close Chat">✖️</button>
+      </div>
+      <div class="chat-body">
+        <div id="messageArea" class="message-area"></div>
+        <input type="text" id="messageInput" placeholder="Type your message" aria-label="Message input">
+        <button id="sendMessageBtn" class="btn btn-primary" aria-label="Send message">⬆️</button>
+      </div>
     </div>
-  </div>
-  <!-- Chat Icon Button -->
-  <button id="openChatBtn" class="chat-icon-btn" aria-label="Open chat">💬</button>
-</main>
+    <!-- Chat Icon Button -->
+    <button id="openChatBtn" class="chat-icon-btn" aria-label="Open chat">💬</button>
+    <!--https://getbootstrap.com/docs/5.1/components/badge/-->
+  </main>
 
 
-<!-- Footer -->
-<footer class="bg-dark text-white text-center py-3 mt-5">
-  <div class="container">
-    <p>&copy; 2024 IUM Dashboard. All rights reserved.</p>
-    <p>Contact: claudio.gesposito@hotmail.it | Phone: +123 456 7890</p>
-  </div>
-</footer>
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <div class="container">
+      <p>&copy; 2024 IUM Dashboard. All rights reserved.</p>
+      <p>Contact: claudio.gesposito@hotmail.it | Phone: +123 456 7890</p>
+    </div>
+  </footer>
 
 
-<audio id="notificationSound">
-  <source src="./assets/audio/pop-alert.mp3" type="audio/mpeg">
-  Your browser does not support the audio element!
-</audio>
+  <audio id="notificationSound">
+    <source src="./assets/audio/pop-alert.mp3" type="audio/mpeg">
+    Your browser does not support the audio element!
+  </audio>
 
 
-<!-- Bootstrap JS and Axios -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!-- Custom JavaScript -->
-<script src="club_app.js"></script>
-<script src="chat.js"></script>
+  <!-- Bootstrap JS and Axios -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="club_app.js"></script>
+  <script src="chat.js"></script>
 
-<!-- socket.io -->
-<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <!-- socket.io -->
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 </body>
 
 </html>
-
