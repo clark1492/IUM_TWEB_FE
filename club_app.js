@@ -37,94 +37,27 @@ document.addEventListener('DOMContentLoaded', function () {
     const dateStart = seasonSelection.options[seasonSelection.selectedIndex].getAttribute("data-start");
     const dateEnd = seasonSelection.options[seasonSelection.selectedIndex].getAttribute("data-end");
     let valuations = [];
-    if (queryName) {
+    //if (queryName) {
       axios.get(`${baseUrl}players/search/info?name=${queryName}&position=${queryPosition}&start=${dateStart}&end=${dateEnd}`)
         .then(resultPlayer => {
           renderPlayerValuations(resultPlayer.data);
-        }).catch(error => console.error('Error fetching game-appearance:', error));
-    }
-    else {
-      axios.get(`${baseUrl}game-appearances/playerid/startdate/enddate?startdate=${dateStart}&enddate=${dateEnd}`)
-        .then(resultApp => {
-          resultApp.data.forEach(gameAppearance => {
-            axios.get(`${baseUrl}players/search/name/position?name=${gameAppearance.player_name}&position=${queryPosition}`)
-              .then(resultPlayer => {
-                if (resultPlayer) {
-                  resultPlayer.data.forEach(player => {
-                    axios.get(`${baseUrl}clubs/${gameAppearance.player_club_id}`)
-                      .then(resultClub => {
-                        let playerValuation = {
-                          "player_id": player.playerId,
-                          "player_name": player.name,
-                          "position": player.position,
-                          "market_value": player.marketValueInEur,
-                          "club_name": resultClub.data.name,
-                          "club_id": gameAppearance.player_club_id,
-                          "yellow_cards": gameAppearance.yellow_cards,
-                          "red_cards": gameAppearance.red_cards,
-                          "goals": gameAppearance.goals,
-                          "assists": gameAppearance.assists,
-                          "minutes_played": gameAppearance.minutes_played,
-                          "appearances": gameAppearance.appearances
-                        }
-                        valuations.push(playerValuation);
-                        renderPlayerValuations(valuations);
-                      }).catch(error => console.error("Error fetching clubs:", error));
-                  })
-                }
-              }).catch(error => console.error('Error fetching players:', error));
-          })
-        }).catch(error => console.error('Error fetching game-appearance:', error));
-    }
+        }).catch(error => console.error('Error fetching game-appearance from playersearch:', error));
+    //}
   }
 
   function loadPlayerValuationsClubName() {
     const queryName = inputSearch.value;
     const queryPosition = positionSelection.options[positionSelection.selectedIndex].value;
-    const queryStart = seasonSelection.options[seasonSelection.selectedIndex].getAttribute("data-start");
-    const queryEnd = seasonSelection.options[seasonSelection.selectedIndex].getAttribute("data-end");
-    let valuations = [];
+    const dateStart = seasonSelection.options[seasonSelection.selectedIndex].getAttribute("data-start");
+    const dateEnd = seasonSelection.options[seasonSelection.selectedIndex].getAttribute("data-end");
     if (queryName) {
-      axios.get(`${baseUrl}clubs/search/name?name=${queryName}`)
-        .then(resultClubs => {
-          if (resultClubs) {
-            resultClubs.data.forEach(club => {
-              axios.get(`${baseUrl}game-appearances/clubid/startdate/enddate?clubid=${club.club_id}&startdate=${queryStart}&enddate=${queryEnd}`)
-                .then(resultApp => {
-                  if (resultApp) {
-                    resultApp.data.forEach(gameAppearance => {
-                      axios.get(`${baseUrl}players/search/name/position?name=${gameAppearance.player_name}&sort=name&order=asc&position=${queryPosition}`)
-                        .then(resultPlayer => {
-                          if (resultPlayer) {
-                            resultPlayer.data.forEach(player => {
-                              let playerValuation = {
-                                "player_id": player.player_id,
-                                "player_name": player.name,
-                                "postion": player.postion,
-                                "market_value": player.market_value,
-                                "club_name": resultClub.data.club_name,
-                                "club_id": gameAppearance.player_club_id,
-                                "yellow_cards": gameAppearance.yellow_cards,
-                                "red_cards": gameAppearance.red_cards,
-                                "goals": gameAppearance.goals,
-                                "assists": gameAppearance.assists,
-                                "minutes_played": gameAppearance.minutes_played,
-                                "appearances": gameAppearance.appearances
-                              }
-                              valuations.push(playerValuation);
-                            })
-                          }
-                        }).catch(error => console.error("Error fetching clubs:", error));
-                    })
-                  }
-                }).catch(error => console.error('Error fetching game-appearances:', error));
-            })
-          }
-        }).catch(error => console.error('Error fetching players paged:', error));
-
+      axios.get(`${baseUrl}clubs/search/info?name=${queryName}&position=${queryPosition}&start=${dateStart}&end=${dateEnd}`)
+      .then(resultPlayer => {
+        renderPlayerValuations(resultPlayer.data);
+      }).catch(error => console.error('Error fetching game-appearance from playersearch:', error));
     }
-    renderPlayerValuations(valuations);
   }
+
   function renderPlayerValuations(valuations) {
     playerValuationsTableBody.innerHTML = '';
 
@@ -156,11 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Fetch player names for autocomplete
-  inputSearch.addEventListener('input', function () {
-    loadPlayerValuations();
-  });
-
   function loadPlayerValuations() {
     const paramSearchValue = paramSearch.value;
     if (paramSearchValue == 1) {
@@ -169,6 +97,28 @@ document.addEventListener('DOMContentLoaded', function () {
       loadPlayerValuationsClubName();
     }
   }
+
+  // Add eventhandler for search input
+  inputSearch.addEventListener('input', function () {
+    loadPlayerValuations();
+  });
+
+  // Add eventhandler for select input (type of search)
+  paramSearch.addEventListener('change', function () {
+    inputSearch.value = '';
+    loadPlayerValuations();
+  });
+
+  // Add eventhandler for select input (position)
+  positionSelection.addEventListener('change', function () {
+    loadPlayerValuations();
+  });
+
+  // Add eventhandler for select input (season)
+  seasonSelection.addEventListener('change', function () {
+    loadPlayerValuations();
+  });
+
 
   function infoPlayerId(playerId) {
     // Fetch player data from API
