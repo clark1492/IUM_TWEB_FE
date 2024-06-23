@@ -8,7 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const playerValuationsTableBody = document.querySelector('#playerValuationsTable tbody');
   const inputSearch = document.querySelector('#searchForm input');
   const sortSelection = document.getElementById('sortSelection');
+  const sortOrderToggle = document.getElementById('sortOrderToggle');
+  const sortIcon = document.querySelector('.sort-order-toggle i');
 
+  /* Handle sort functionality */
   function sortTable() {
     const rows = Array.from(playerValuationsTableBody.rows);
     const criteria = sortSelection.value;
@@ -60,14 +63,18 @@ document.addEventListener('DOMContentLoaded', function () {
         default:
           return 0;
       }
-
+      let retValue = 0;
       if (valueA < valueB) {
-        return -1;
+        retValue = -1;
       }
       if (valueA > valueB) {
-        return 1;
+        retValue = 1;
       }
-      return 0;
+      if (currentSortOrder === 'DESC') {
+        // invert 1 and -1
+        retValue = retValue * -1;
+      }
+      return retValue;
     });
 
     playerValuationsTableBody.innerHTML = '';
@@ -76,6 +83,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
   sortSelection.addEventListener('change', sortTable);
 
+  // Define default sort state
+  let currentSortOrder = 'ASC';
+
+  sortOrderToggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    currentSortOrder = currentSortOrder === 'ASC' ? 'DESC' : 'ASC';
+    sortTable();
+    updateSortIcon();
+  });
+
+  // Update sort icon based on current sort order
+  function updateSortIcon() {
+    sortIcon.className = currentSortOrder === 'ASC' ? 'fas fa-sort-up' : 'fas fa-sort-down';
+  }
+
+  /* Handle table row creation */
   function createPlayerValuationRow(playerValuation) {
     const row = document.createElement('tr');
     row.innerHTML = `
@@ -98,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return row;
   }
 
+  /* Handle API calls */
   function loadPlayerValuationsPlayerName() {
     const queryName = inputSearch.value;
     const queryPosition = positionSelection.options[positionSelection.selectedIndex].value;

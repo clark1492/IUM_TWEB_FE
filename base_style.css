@@ -7,3 +7,11 @@ body {
 main {
     flex: 1;
 }
+
+.sort-order-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 10px;
+}
