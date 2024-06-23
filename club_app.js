@@ -87,10 +87,10 @@ document.addEventListener('DOMContentLoaded', function () {
           <button type="button" class="btn btn-link btn-club" data-id="${playerValuation.club_id}">${playerValuation.club_name}</button>          
         </td>
         <td>${playerValuation.market_value}</td>
-        <td>${playerValuation.goals}</td>
-        <td>${playerValuation.assists}</td>
-        <td>${playerValuation.yellow_cards}</td>
         <td>${playerValuation.red_cards}</td>
+        <td>${playerValuation.yellow_cards}</td>
+        <td>${playerValuation.assists}</td>
+        <td>${playerValuation.goals}</td>
         <td>${playerValuation.minutes_played}</td>
         <td>${playerValuation.appearances}</td>
         
