@@ -73,7 +73,22 @@
             </select>
             <input type="text" class="form-control my-1 me-sm-2 w-auto" aria-label="Search by player or club"
               placeholder="Name of player or club">
-
+            
+            <!-- Sorting Options -->
+            <!--<label for="sortSelection" class="form-label me-2">Sort By:</label>-->
+            <select class="form-select my-1 me-sm-2 w-auto" id="sortSelection" aria-label="Sort by">
+              <option selected="" value="">Sort by ...</option>
+              <option value="position">Sort by Position</option>
+              <option value="player">Sort by Player</option>
+              <option value="club">Sort by Club</option>
+              <option value="marketValue">Sort by Market Value (EUR)</option>
+              <option value="redCards">Sort by Red Cards</option>
+              <option value="yellowCards">Sort by Yellow Cards</option>
+              <option value="assist">Sort by Assist</option>
+              <option value="goals">Sort by Goals</option>
+              <option value="minutesPlayed">Sort by Minutes Played</option>
+              <option value="appearances">Sort by Appearances</option>
+            </select>
           </div>
         </form>
       </div>

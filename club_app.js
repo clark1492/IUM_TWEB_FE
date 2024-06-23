@@ -7,7 +7,74 @@ document.addEventListener('DOMContentLoaded', function () {
   const positionSelection = document.getElementById('positionSelection');
   const playerValuationsTableBody = document.querySelector('#playerValuationsTable tbody');
   const inputSearch = document.querySelector('#searchForm input');
+  const sortSelection = document.getElementById('sortSelection');
 
+  function sortTable() {
+    const rows = Array.from(playerValuationsTableBody.rows);
+    const criteria = sortSelection.value;
+
+    rows.sort((a, b) => {
+      let valueA, valueB;
+
+      switch (criteria) {
+        case 'position':
+          valueA = a.cells[0].textContent;
+          valueB = b.cells[0].textContent;
+          break;
+        case 'player':
+          valueA = a.cells[1].textContent;
+          valueB = b.cells[1].textContent;
+          break;
+        case 'club':
+          valueA = a.cells[2].textContent;
+          valueB = b.cells[2].textContent;
+          break;
+        case 'marketValue':
+          valueA = parseFloat(a.cells[3].textContent.replace(/,/g, ''));
+          valueB = parseFloat(b.cells[3].textContent.replace(/,/g, ''));
+          break;
+        case 'redCards':
+          valueA = parseInt(a.cells[4].textContent);
+          valueB = parseInt(b.cells[4].textContent);
+          break;
+        case 'yellowCards':
+          valueA = parseInt(a.cells[5].textContent);
+          valueB = parseInt(b.cells[5].textContent);
+          break;
+        case 'assist':
+          valueA = parseInt(a.cells[6].textContent);
+          valueB = parseInt(b.cells[6].textContent);
+          break;
+        case 'goals':
+          valueA = parseInt(a.cells[7].textContent);
+          valueB = parseInt(b.cells[7].textContent);
+          break;
+        case 'minutesPlayed':
+          valueA = parseInt(a.cells[8].textContent);
+          valueB = parseInt(b.cells[8].textContent);
+          break;
+        case 'appearances':
+          valueA = parseInt(a.cells[9].textContent);
+          valueB = parseInt(b.cells[9].textContent);
+          break;
+        default:
+          return 0;
+      }
+
+      if (valueA < valueB) {
+        return -1;
+      }
+      if (valueA > valueB) {
+        return 1;
+      }
+      return 0;
+    });
+
+    playerValuationsTableBody.innerHTML = '';
+    rows.forEach(row => playerValuationsTableBody.appendChild(row));
+  }
+
+  sortSelection.addEventListener('change', sortTable);
 
   function createPlayerValuationRow(playerValuation) {
     const row = document.createElement('tr');
