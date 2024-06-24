@@ -37,32 +37,30 @@
   </nav>
 
   <main>
-    <div class="row">
+    <div class="d-flex flex-row align-items-center ">
       <!-- Filters -->
-      <div class="col-md-3">
+      <div class="align-items-center flex-wrap mx-auto">
+        <legend>Filters by Club or Player</legend>
         <!-- Filters forms -->
         <form id="searchByClubForm">
-          <div class="mb-3">
-            <label for="clubName" class="form-label">Search by Club name:</label>
+          <div class="input-group mt-4 mb-4">
+            <!--<label for="clubName" class="form-label">Search by Club name:</label>-->
             <input type="text" class="form-control" id="clubName" placeholder="Enter Club name" list="clubNameList">
             <datalist id="clubNameList"></datalist>
+            <button type="submit" class="btn btn-primary">Search</button>
           </div>
-          <button type="submit" class="btn btn-primary">Search</button>
         </form>
-      </div>
-      <div class="col-md-6">
         <form id="searchByPlayerForm">
-          <div class="mb-3">
-            <label for="playerName" class="form-label">Search by Player Name:</label>
+          <div class="input-group mt-4 mb-4">
+            <!--<label for="playerName" class="form-label">Search by Player Name:</label>-->
             <input type="text" class="form-control" id="playerName" placeholder="Enter Player Name"
               list="playerNameList">
             <datalist id="playerNameList"></datalist>
-          </div>
-          <div class="mb-3">
-            <label for="date" class="form-label">Search by Date:</label>
+            <!--<label for="date" class="form-label">Search by Date:</label>-->
             <input type="date" class="form-control" id="date">
+            <button type="submit" class="btn btn-primary">Search</button>
+
           </div>
-          <button type="submit" class="btn btn-primary">Search</button>
         </form>
       </div>
     </div>
