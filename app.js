@@ -68,14 +68,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const row = document.createElement('tr');
     row.innerHTML = `
         <td>
-          <button type="button" class="btn btn-link" data-id="${valuation.id.playerId}">${valuation.id.playerId}</button>
+          <button type="button" class="btn btn-link" data-id="${valuation.playerValuation.id.playerId}">${valuation.player.name}</button>
         </td>
-        <td>${valuation.id.date}</td>
-        <td>${valuation.lastSeason}</td>
-        <td>${valuation.marketValueInEur}</td>
+        <td>${valuation.club.name}</td>
+        <td>${valuation.player.position}</td>
+        <td>${valuation.player.foot}</td>
+        <td>${valuation.player.heightInCm}</td>
+
+        <td>${valuation.playerValuation.id.date}</td>
+        <td>${valuation.playerValuation.lastSeason}</td>
+        <td>${valuation.playerValuation.marketValueInEur}</td>
+        <td>${valuation.player.highestMarketValueInEur}</td>
+
         <td>
-          <button class="btn btn-primary btn-sm edit-valuation" data-id="${valuation.id.playerId}" data-date="${valuation.id.date}">Edit</button>
-          <button class="btn btn-danger btn-sm delete-valuation" data-id="${valuation.id.playerId}" data-date="${valuation.id.date}">Delete</button>
+          <button class="btn btn-primary btn-sm edit-valuation" data-id="${valuation.playerValuation.id.playerId}" data-date="${valuation.playerValuation.id.date}">Edit</button>
+          <button class="btn btn-danger btn-sm delete-valuation" data-id="${valuation.playerValuation.id.playerId}" data-date="${valuation.playerValuation.id.date}">Delete</button>
         </td>
       `;
     return row;
@@ -179,24 +186,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const playerName = playerNameInput.value;
     const selectedOption = Array.from(playerNameList.options).find(option => option.value === playerName);
     const playerId = selectedOption ? selectedOption.dataset.playerId : null; //document.querySelector('#playerId').value
-    const date = document.querySelector('#date').value;
+    const startDate = document.querySelector('#startDate').value;
+    const endDate = document.querySelector('#endDate').value;
+
     if (clubId) {
-      axios.get(`${baseUrl}player-valuations/club/${clubId}`)
+      axios.get(`${baseUrl}player-valuations/info/club/${clubId}?pageSize=100`)
           .then(response => {
             clubNameInput.value = '';
             playerNameInput.value = '';
-            date.value = '';
+            startDate.value = '';
+            endDate.value = '';
             renderPlayerValuations(response.data);
           })
           .catch(error => {
             console.error('Error fetching player valuations:', error);
           });
-    } else if (playerId || date) {
-      axios.get(`${baseUrl}player-valuations/${playerId}/${date}`)
+    } else if (playerId) {
+      //http://localhost:3000/player-valuations/info/player/16631?startDate=2003-12-12&endDate=2005-12-12
+      axios.get(`${baseUrl}player-valuations/info/player/${playerId}?pageSize=100&startDate=${startDate}&endDate=${endDate}`)
           .then(response => {
             playerNameInput.value = '';
             clubNameInput.value = '';
-            date.value = '';
+            startDate.value = '';
+            endDate.value = '';
             renderPlayerValuations(response.data);
           })
           .catch(error => {

@@ -104,10 +104,14 @@ document.addEventListener('DOMContentLoaded', function () {
     row.innerHTML = `
         <td>${playerValuation.position}</td>
         <td>
-          <button type="button" class="btn btn-link btn-player" data-id="${playerValuation.player_id}">${playerValuation.player_name}</button>
+        <img src="${playerValuation.image_url}" alt="Player Image" class="rounded-circle user-img">
         </td>
         <td>
-          <button type="button" class="btn btn-link btn-club" data-id="${playerValuation.club_id}">${playerValuation.club_name}</button>          
+        <a href="#" class="btn btn-link btn-player" data-id="${playerValuation.player_id}">${playerValuation.player_name}</a>
+        </td>
+        <td>
+          <!--<button type="button" class="btn btn-link btn-club" data-id="${playerValuation.club_id}">${playerValuation.club_name}</button>   -->       
+          <a href="#" class="btn btn-link btn-club" data-id="${playerValuation.club_id}">${playerValuation.club_name}</a>
         </td>
         <td>${playerValuation.market_value}</td>
         <td>${playerValuation.red_cards}</td>
@@ -217,6 +221,8 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(response => {
         const playerData = response.data;
         console.log(playerData);
+        
+        document.getElementById("imgUrl").src = playerData.imageUrl;
         document.getElementById("editFirstName").value = playerData.firstName;
         document.getElementById("editLastName").value = playerData.lastName;
         document.getElementById("editLastSeasonPlayer").value = playerData.lastSeason;

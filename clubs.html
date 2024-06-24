@@ -107,6 +107,7 @@
         <thead class="text-nowrap">
           <tr>
             <th>Position</th>
+            <th></th>
             <th>Player</th>
             <th>Club</th>
             <th>Market Value (EUR)</th>
@@ -276,7 +277,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="editPlayerForm">
+            <div class="d-flex justify-content-center mb-3">
+              <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Player Image" class="rounded-circle big-user-img" id="imgUrl">
+            </div>
+              <form id="editPlayerForm">
               <div class="form-group">
                 <label for="editFirstName">First name:</label>
                 <input type="text" class="form-control" id="editFirstName" placeholder="first name">

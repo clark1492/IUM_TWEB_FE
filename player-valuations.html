@@ -40,7 +40,7 @@
     <div class="d-flex flex-row align-items-center ">
       <!-- Filters -->
       <div class="align-items-center flex-wrap mx-auto">
-        <legend>Filters by Club or Player</legend>
+        <legend>Search by Club or Player</legend>
         <!-- Filters forms -->
         <form id="searchByClubForm">
           <div class="input-group mt-4 mb-4">
@@ -57,7 +57,9 @@
               list="playerNameList">
             <datalist id="playerNameList"></datalist>
             <!--<label for="date" class="form-label">Search by Date:</label>-->
-            <input type="date" class="form-control" id="date">
+            <input type="date" class="form-control" id="startDate">
+            <input type="date" class="form-control" id="endDate">
+
             <button type="submit" class="btn btn-primary">Search</button>
 
           </div>
@@ -70,10 +72,15 @@
       <table id="playerValuationsTable" class="table">
         <thead>
           <tr>
-            <th>Player ID</th>
+            <th>Player Name</th>
+            <th>Club</th>
+            <th>Position</th>
+            <th>Foot</th>
+            <th>Height</th>
             <th>Date</th>
             <th>Last Season</th>
             <th>Market Value (EUR)</th>
+            <th>Max Market Value (EUR)</th>
             <th>Actions</th>
           </tr>
         </thead>
