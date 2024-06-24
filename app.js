@@ -137,6 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
           const playerData = response.data;
           console.log(playerData);
+          document.getElementById("imgUrl").src = playerData.imageUrl;
           document.getElementById("editFirstName").value = playerData.firstName;
           document.getElementById("editLastName").value = playerData.lastName;
           document.getElementById("editLastSeasonPlayer").value = playerData.lastSeason;

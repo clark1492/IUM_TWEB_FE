@@ -23,10 +23,22 @@ main {
 }
 
 .big-user-img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
-}
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .modal-header {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .modal-body {
+    background-color: #f8f9fa;
+  }
+  .modal-footer {
+    background-color: #f1f1f1;
+  }
 
 /*
 // https://stackoverflow.com/questions/22044194/sized-table-with-at-most-one-line-of-content-per-cell-with-bootstrap-3

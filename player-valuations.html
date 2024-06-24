@@ -57,8 +57,10 @@
               list="playerNameList">
             <datalist id="playerNameList"></datalist>
             <!--<label for="date" class="form-label">Search by Date:</label>-->
-            <input type="date" class="form-control" id="startDate">
-            <input type="date" class="form-control" id="endDate">
+            <input type="text" placeholder="Start Date" class="form-control" id="startDate" onfocus="(this.type='date')">
+            <input type="text" placeholder="End Date" class="form-control" id="endDate" onfocus="(this.type='date')">
+
+            <!--<input type="date" class="form-control" id="endDate">-->
 
             <button type="submit" class="btn btn-primary">Search</button>
 
@@ -153,6 +155,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <div class="d-flex justify-content-center mb-3">
+              <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Player Image" class="rounded-circle big-user-img" id="imgUrl">
+            </div>
             <form id="editPlayerForm">
               <div class="mb-3">
                 <label for="editFirstName" class="form-label">First name:</label>
