@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let room = '';
 
     openChatBtn.addEventListener('click', function () {
+        // Store to cookie? https://www.w3schools.com/js/js_cookies.asp
         if (!username) {
             username = prompt('Please enter your username:');
             if (!username) return;

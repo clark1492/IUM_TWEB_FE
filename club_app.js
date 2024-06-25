@@ -25,40 +25,40 @@ document.addEventListener('DOMContentLoaded', function () {
           valueB = b.cells[0].textContent;
           break;
         case 'player':
-          valueA = a.cells[1].textContent;
-          valueB = b.cells[1].textContent;
-          break;
-        case 'club':
           valueA = a.cells[2].textContent;
           valueB = b.cells[2].textContent;
           break;
+        case 'club':
+          valueA = a.cells[3].textContent;
+          valueB = b.cells[3].textContent;
+          break;
         case 'marketValue':
-          valueA = parseFloat(a.cells[3].textContent.replace(/,/g, ''));
-          valueB = parseFloat(b.cells[3].textContent.replace(/,/g, ''));
+          valueA = parseFloat(a.cells[4].textContent.replace(/,/g, ''));
+          valueB = parseFloat(b.cells[4].textContent.replace(/,/g, ''));
           break;
         case 'redCards':
-          valueA = parseInt(a.cells[4].textContent);
-          valueB = parseInt(b.cells[4].textContent);
-          break;
-        case 'yellowCards':
           valueA = parseInt(a.cells[5].textContent);
           valueB = parseInt(b.cells[5].textContent);
           break;
-        case 'assist':
+        case 'yellowCards':
           valueA = parseInt(a.cells[6].textContent);
           valueB = parseInt(b.cells[6].textContent);
           break;
-        case 'goals':
+        case 'assist':
           valueA = parseInt(a.cells[7].textContent);
           valueB = parseInt(b.cells[7].textContent);
           break;
-        case 'minutesPlayed':
+        case 'goals':
           valueA = parseInt(a.cells[8].textContent);
           valueB = parseInt(b.cells[8].textContent);
           break;
-        case 'appearances':
+        case 'minutesPlayed':
           valueA = parseInt(a.cells[9].textContent);
           valueB = parseInt(b.cells[9].textContent);
+          break;
+        case 'appearances':
+          valueA = parseInt(a.cells[10].textContent);
+          valueB = parseInt(b.cells[10].textContent);
           break;
         default:
           return 0;
