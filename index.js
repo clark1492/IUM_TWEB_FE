@@ -53,6 +53,89 @@ async function getRecentGames() {
     }
 }
 
+async function getTopClubsByAverageAge() {
+    try {
+        const response = await axios.get(`${baseUrl}/clubs`);
+        const clubs = response.data;
+        
+        // Sort and get top 5 clubs
+        const topClubs = clubs
+            //.sort((a, b) => b.averageAge - a.averageAge)
+            .sort((a, b) => a.averageAge - b.averageAge)
+            .filter(c => c.averageAge > 0)
+            .slice(0, 5);
+        
+        // Process data for chart
+        const labels = topClubs.map(c => c.name);
+        const data = topClubs.map(c => c.averageAge);
+        
+        // Update chart
+        updateClubAgeChart(labels, data);
+    } catch (error) {
+        console.error('Error fetching club avg age:', error);
+    }
+}
+
+let clubAgeChart;
+
+function updateClubAgeChart(labels, data) {
+    const ctx = document.getElementById('clubAgeChart').getContext('2d');
+    
+    if (clubAgeChart) {
+        clubAgeChart.destroy();
+    }
+    
+    clubAgeChart = new Chart(ctx, {
+        type: 'bar', 
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Average Age',
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.8)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',  // This makes the bar chart horizontal
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Average Age'
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString()+ ' years old';
+                        }
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Club'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.parsed.x.toLocaleString() + ' years old';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
 function updatePlayerValueChart(labels, data) {
     const ctx = document.getElementById('playerValueChart').getContext('2d');
     
@@ -114,4 +197,5 @@ function updatePlayerValueChart(labels, data) {
 document.addEventListener('DOMContentLoaded', () => {
     getTopPlayersByMarketValue();
     getRecentGames();
+    getTopClubsByAverageAge();
 });
