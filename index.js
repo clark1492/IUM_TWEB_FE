@@ -29,6 +29,30 @@ async function getTopPlayersByMarketValue() {
     }
 }
 
+async function getRecentGames() {
+    try {
+        const response = await axios.get(`${baseUrl}/games/page?pageSize=10`);
+        const games = response.data;
+        
+        // Sort games by date (also if they should be already sorted on the BE, but the srting order is creationDate) and get the 5 most recent
+        const recentGames = games
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .slice(0, 5);
+        
+        // Update the card with the recent games
+        const recentGamesContainer = document.getElementById('recentGames');
+        recentGamesContainer.innerHTML = recentGames.map(game => `
+            <div class="list-group-item">
+                <strong>${game.home_club_name} ${game.home_club_goals} - ${game.away_club_goals} ${game.away_club_name}</strong>
+                <br>
+                <small>${new Date(game.date).toLocaleDateString()}</small>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('Error fetching recent games:', error);
+    }
+}
+
 function updatePlayerValueChart(labels, data) {
     const ctx = document.getElementById('playerValueChart').getContext('2d');
     
@@ -89,4 +113,5 @@ function updatePlayerValueChart(labels, data) {
 
 document.addEventListener('DOMContentLoaded', () => {
     getTopPlayersByMarketValue();
+    getRecentGames();
 });
