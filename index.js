@@ -76,6 +76,71 @@ async function getTopClubsByAverageAge() {
     }
 }
 
+async function getTopGoalScorers() {
+    try {
+        let dateStart = "2000-01-01"; // TODO: Eventually add support to customize it from the page
+        let dateEnd = "3000-12-31";
+        let queryName = '';
+        let queryPosition = '';
+        //i.e. http://localhost:3000/players/search/info?name=&position=&start=2013-08-20&end=2024-08-19
+        const appearancesResponse = await axios.get(`${baseUrl}/players/search/info?name=${queryName}&position=${queryPosition}&start=${dateStart}&end=${dateEnd}`);
+        const appearances = appearancesResponse.data;
+        
+        const goalScorers = appearances.reduce((acc, appearance) => {
+            if (appearance.goals && appearance.player_name) {
+                acc[appearance.player_name] = (acc[appearance.goals] || 0) + appearance.goals;
+            }
+            return acc;
+        }, {});
+        
+        const topScorers = Object.entries(goalScorers)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 10);
+            /*.map(([playerId, goals]) => {
+                const player = players.find(p => p.appearance.player_name === parseInt(playerId));
+                return { name: player ? player.name : 'Unknown', goals };
+            });*/
+        
+        updateTopScorersChart(topScorers.map(s => s[0]), topScorers.map(s => s[1]));
+    } catch (error) {
+        console.error('Error fetching top goal scorers:', error);
+    }
+}
+
+function updateTopScorersChart(labels, data) {
+    const ctx = document.getElementById('topScorersChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Goals',
+                data: data,
+                backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Goals'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+}
+
 let clubAgeChart;
 
 function updateClubAgeChart(labels, data) {
@@ -194,8 +259,11 @@ function updatePlayerValueChart(labels, data) {
 }
 
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
     getTopPlayersByMarketValue();
     getRecentGames();
     getTopClubsByAverageAge();
+    getTopGoalScorers();
 });
