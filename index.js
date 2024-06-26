@@ -82,6 +82,7 @@ async function getTopGoalScorers() {
         let dateEnd = "3000-12-31";
         let queryName = '';
         let queryPosition = '';
+        //minutes_played, yellow_cards, red_cards, assists
         //i.e. http://localhost:3000/players/search/info?name=&position=&start=2013-08-20&end=2024-08-19
         const appearancesResponse = await axios.get(`${baseUrl}/players/search/info?name=${queryName}&position=${queryPosition}&start=${dateStart}&end=${dateEnd}`);
         const appearances = appearancesResponse.data;
@@ -94,14 +95,68 @@ async function getTopGoalScorers() {
         }, {});
         
         const topScorers = Object.entries(goalScorers)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 10);
-            /*.map(([playerId, goals]) => {
-                const player = players.find(p => p.appearance.player_name === parseInt(playerId));
-                return { name: player ? player.name : 'Unknown', goals };
-            });*/
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
         
-        updateTopScorersChart(topScorers.map(s => s[0]), topScorers.map(s => s[1]));
+
+        const yellowCards = appearances.reduce((acc, appearance) => {
+            if (appearance.yellow_cards && appearance.player_name) {
+                acc[appearance.player_name] = (acc[appearance.yellow_cards] || 0) + appearance.yellow_cards;
+            }
+            return acc;
+        }, {});
+        
+        const topYellowCards = Object.entries(yellowCards)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+
+
+        const redCards = appearances.reduce((acc, appearance) => {
+            if (appearance.red_cards && appearance.player_name) {
+                acc[appearance.player_name] = (acc[appearance.red_cards] || 0) + appearance.red_cards;
+            }
+            return acc;
+        }, {});
+        
+        const topRedCards = Object.entries(redCards)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+
+        const assists = appearances.reduce((acc, appearance) => {
+            if (appearance.assists && appearance.player_name) {
+                acc[appearance.player_name] = (acc[appearance.assists] || 0) + appearance.assists;
+            }
+            return acc;
+        }, {});
+        
+        const topAssists = Object.entries(assists)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+
+        // minutes_played
+
+        const minutesPlayed = appearances.reduce((acc, appearance) => {
+            if (appearance.minutes_played && appearance.player_name) {
+                acc[appearance.player_name] = (acc[appearance.minutes_played] || 0) + appearance.minutes_played;
+            }
+            return acc;
+        }, {});
+        
+        const topMinutesPlayed= Object.entries(minutesPlayed)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+        
+        updateBarChart(topScorers.map(s => s[0]), topScorers.map(s => s[1]), 'topScorersChart', 'Number of Goals', 'Goals', 'rgba(128, 171, 130, 0.8)', 'rgba(128, 171, 130, 1)')
+        //updateTopYellowCardsChart(topYellowCards.map(s => s[0]), topYellowCards.map(s => s[1]));
+        updateBarChart(topYellowCards.map(s => s[0]), topYellowCards.map(s => s[1]), 'yellowCardsChart', 'Number of Yellow Cards', 'Yellow Cards', 'rgba(255, 206, 86, 0.8)', 'rgba(255, 206, 86, 1)')
+        updateBarChart(topRedCards.map(s => s[0]), topRedCards.map(s => s[1]), 'redCardsChart', 'Number of Red Cards', 'Red Cards', 'rgba(255, 99, 132, 0.8)', 'rgba(255, 99, 132, 1)')
+        updateBarChart(topAssists.map(s => s[0]), topAssists.map(s => s[1]), 'assistsChart', 'Number of Assists', 'Assists', 'rgba(195, 162, 158, 0.8)', 'rgba(195, 162, 158, 1)')
+        // yellow rgba(255, 206, 86, 0.8)
+        //grey rgba(75, 192, 192, 0.8)
+        //updateBarChart(topMinutesPlayed.map(s => s[0]), topMinutesPlayed.map(s => s[1]), 'minutesPlayedChart', 'Number of Minutes Played', 'Minutes Played', 'rgba(255, 206, 86, 0.8)')
+
+
     } catch (error) {
         console.error('Error fetching top goal scorers:', error);
     }
@@ -140,6 +195,41 @@ function updateTopScorersChart(labels, data) {
         }
     });
 }
+
+function updateBarChart(labels, data, chartId, chartTitle, chartLabel, chartBackgroundColor, chartBorderColor) {
+    const ctx = document.getElementById(chartId).getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: chartLabel,
+                data: data,
+                backgroundColor: chartBackgroundColor,
+                borderColor: chartBorderColor,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: chartTitle
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+}
+
 
 let clubAgeChart;
 
