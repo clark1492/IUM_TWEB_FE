@@ -7,12 +7,15 @@
   <title>IUMTWEB Soccer Analytics Dashboard</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <!-- Custom css -->
   <link rel="stylesheet" href="chat.css">
   <link rel="stylesheet" href="base_style.css">
+  <!-- Custom font-->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -46,60 +49,76 @@
     </div>
   </nav>
 
-  <main>
-    <div class="d-flex flex-row align-items-center ">
-      <!-- Filters -->
-      <div class="align-items-center flex-wrap mx-auto">
-        <legend>Search by Club or Player</legend>
-        <!-- Filters forms -->
-        <form id="searchByClubForm">
-          <div class="input-group mt-4 mb-4">
-            <!--<label for="clubName" class="form-label">Search by Club name:</label>-->
-            <input type="text" class="form-control" id="clubName" placeholder="Enter Club name" list="clubNameList">
-            <datalist id="clubNameList"></datalist>
-            <button type="submit" class="btn btn-primary">Search</button>
+  <main class="container mt-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Search Players</h5>
+        <ul class="nav nav-tabs" id="searchTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="club-tab" data-bs-toggle="tab" data-bs-target="#club-search"
+              type="button" role="tab" aria-controls="club-search" aria-selected="true">Search by Club</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="player-tab" data-bs-toggle="tab" data-bs-target="#player-search" type="button"
+              role="tab" aria-controls="player-search" aria-selected="false">Search by Player</button>
+          </li>
+        </ul>
+        <div class="tab-content mt-3" id="searchTabContent">
+          <div class="tab-pane fade show active" id="club-search" role="tabpanel" aria-labelledby="club-tab">
+            <form id="searchByClubForm">
+              <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <input type="text" class="form-control" id="clubName" placeholder="Enter Club name" list="clubNameList">
+                <datalist id="clubNameList"></datalist>
+                <button type="submit" class="btn btn-primary">Search</button>
+              </div>
+            </form>
           </div>
-        </form>
-        <form id="searchByPlayerForm">
-          <div class="input-group mt-4 mb-4">
-            <!--<label for="playerName" class="form-label">Search by Player Name:</label>-->
-            <input type="text" class="form-control" id="playerName" placeholder="Enter Player Name"
-              list="playerNameList">
-            <datalist id="playerNameList"></datalist>
-            <!--<label for="date" class="form-label">Search by Date:</label>-->
-            <input type="text" placeholder="Start Date" class="form-control" id="startDate" onfocus="(this.type='date')">
-            <input type="text" placeholder="End Date" class="form-control" id="endDate" onfocus="(this.type='date')">
-
-            <!--<input type="date" class="form-control" id="endDate">-->
-
-            <button type="submit" class="btn btn-primary">Search</button>
-
+          <div class="tab-pane fade" id="player-search" role="tabpanel" aria-labelledby="player-tab">
+            <form id="searchByPlayerForm">
+              <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <input type="text" class="form-control" id="playerName" placeholder="Enter Player Name"
+                  list="playerNameList">
+                <datalist id="playerNameList"></datalist>
+                <input type="text" placeholder="Start Date" class="form-control" id="startDate"
+                  onfocus="(this.type='date')">
+                <input type="text" placeholder="End Date" class="form-control" id="endDate"
+                  onfocus="(this.type='date')">
+                <button type="submit" class="btn btn-primary">Search</button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
 
-    <div class="col-mt-5">
-      <!-- Player Valuations Table -->
-      <table id="playerValuationsTable" class="table">
-        <thead>
-          <tr>
-            <th>Player Name</th>
-            <th>Club</th>
-            <th>Position</th>
-            <th>Foot</th>
-            <th>Height</th>
-            <th>Date</th>
-            <th>Last Season</th>
-            <th>Market Value (EUR)</th>
-            <th>Max Market Value (EUR)</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Player Valuations will be inserted here -->
-        </tbody>
-      </table>
+    <div class="card mt-4">
+      <div class="card-body">
+        <h5 class="card-title">Player Valuations</h5>
+        <div class="table-responsive">
+          <table id="playerValuationsTable" class="table table-hover">
+            <!-- Player Valuations Table -->
+            <thead>
+              <tr>
+                <th>Player Name</th>
+                <th>Club</th>
+                <th>Position</th>
+                <th>Foot</th>
+                <th>Height</th>
+                <th>Date</th>
+                <th>Last Season</th>
+                <th>Market Value (EUR)</th>
+                <th>Max Market Value (EUR)</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Player Valuations will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <!-- Edit Player Valuation Modal -->
@@ -135,7 +154,8 @@
               </div>
               <div class="mb-3">
                 <!-- <label for="editCurrentClubId" class="form-label">Current Club ID:</label>-->
-                <input type="text" class="form-control" id="editCurrentClubId" placeholder="Enter Current Club ID" hidden>
+                <input type="text" class="form-control" id="editCurrentClubId" placeholder="Enter Current Club ID"
+                  hidden>
               </div>
               <div class="mb-3">
                 <!--<label for="editPlayerClubDomesticCompetitionId" class="form-label">Player Club Domestic Competition ID:</label>-->
@@ -166,7 +186,9 @@
           </div>
           <div class="modal-body">
             <div class="d-flex justify-content-center mb-3">
-              <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Player Image" class="rounded-circle big-user-img" id="imgUrl">
+              <img
+                src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
+                alt="Player Image" class="rounded-circle big-user-img" id="imgUrl">
             </div>
             <form id="editPlayerForm">
               <div class="mb-3">
@@ -209,13 +231,11 @@
               </div>
               <div class="mb-3">
                 <label for="editSubPosition" class="form-label">Primary position:</label>
-                <input type="text" class="form-control" id="editSubPosition"
-                  placeholder="Enter sub position">
+                <input type="text" class="form-control" id="editSubPosition" placeholder="Enter sub position">
               </div>
               <div class="mb-3">
                 <label for="editPosition" class="form-label">Primary position:</label>
-                <input type="text" class="form-control" id="editPosition"
-                  placeholder="Enter Primary position">
+                <input type="text" class="form-control" id="editPosition" placeholder="Enter Primary position">
               </div>
               <div class="mb-3">
                 <label for="editFoot" class="form-label">Foot:</label>
@@ -227,15 +247,18 @@
               </div>
               <div class="mb-3">
                 <label for="editMarketValueInEur" class="form-label">Market value in eur:</label>
-                <input type="number" class="form-control" id="editMarketValueInEur" placeholder="Enter market value in eur">
+                <input type="number" class="form-control" id="editMarketValueInEur"
+                  placeholder="Enter market value in eur">
               </div>
               <div class="mb-3">
                 <label for="editHighestMarketValueInEur" class="form-label">Highest market value in eur:</label>
-                <input type="number" class="form-control" id="editHighestMarketValueInEur" placeholder="Enter highest market value in eur">
+                <input type="number" class="form-control" id="editHighestMarketValueInEur"
+                  placeholder="Enter highest market value in eur">
               </div>
               <div class="mb-3">
                 <label for="editContractExpirationDate" class="form-label">Contract expiration date:</label>
-                <input type="text" class="form-control" id="editContractExpirationDate" placeholder="Enter contract expiration date">
+                <input type="text" class="form-control" id="editContractExpirationDate"
+                  placeholder="Enter contract expiration date">
               </div>
 
 
@@ -252,7 +275,8 @@
                 <input type="text" class="form-control" id="editUrl" placeholder="Enter url">
               </div>
               <div class="mb-3">
-                <label for="editCurrentClubDomesticCompetitionId" class="form-label">Current club domestic competition Id:</label>
+                <label for="editCurrentClubDomesticCompetitionId" class="form-label">Current club domestic competition
+                  Id:</label>
                 <input type="text" class="form-control" id="editCurrentClubDomesticCompetitionId"
                   placeholder="Enter current club domestic competition Id">
               </div>
@@ -271,22 +295,22 @@
 
     <!-- Chat Component -->
     <div id="chatComponent" class="chat-component" aria-labelledby="chatHeader" role="dialog">
-        <div class="chat-header" id="chatHeader">
-          <h3>Chat</h3>
-          <button id="closeChatBtn" class="btn" aria-label="Close Chat">✖️</button>
-        </div>
-        <div class="chat-body">
-          <div id="messageArea" class="message-area"></div>
-          <input type="text" id="messageInput" placeholder="Type your message" aria-label="Message input">
-          <button id="sendMessageBtn" class="btn btn-primary" aria-label="Send message">⬆️</button>
-        </div>
+      <div class="chat-header" id="chatHeader">
+        <h3>Chat</h3>
+        <button id="closeChatBtn" class="btn" aria-label="Close Chat">✖️</button>
       </div>
-      <!-- Chat Icon Button -->
-      <button id="openChatBtn" class="chat-icon-btn" aria-label="Open chat">💬</button>
+      <div class="chat-body">
+        <div id="messageArea" class="message-area"></div>
+        <input type="text" id="messageInput" placeholder="Type your message" aria-label="Message input">
+        <button id="sendMessageBtn" class="btn btn-primary" aria-label="Send message">⬆️</button>
+      </div>
+    </div>
+    <!-- Chat Icon Button -->
+    <button id="openChatBtn" class="chat-icon-btn" aria-label="Open chat">💬</button>
   </main>
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3 mt-5">
-        <div class="container">
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <div class="container">
       <p>&copy; 2024 IUM Dashboard. All rights reserved.</p>
       <p>Contact: claudio.gesposito@hotmail.it | Phone: +123 456 7890</p>
     </div>
