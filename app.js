@@ -80,9 +80,15 @@ document.addEventListener('DOMContentLoaded', function () {
         <td>${valuation.playerValuation.marketValueInEur}</td>
         <td>${valuation.player.highestMarketValueInEur}</td>
 
-        <td>
+        <!--<td>
           <button class="btn btn-primary btn-sm edit-valuation" data-id="${valuation.playerValuation.id.playerId}" data-date="${valuation.playerValuation.id.date}">Edit</button>
           <button class="btn btn-danger btn-sm delete-valuation" data-id="${valuation.playerValuation.id.playerId}" data-date="${valuation.playerValuation.id.date}">Delete</button>
+        </td>-->
+        <td>
+          <div class="action-icons">
+            <i class="fas fa-edit action-icon edit-icon edit-valuation" data-id="${valuation.playerValuation.id.playerId}" data-date="${valuation.playerValuation.id.date}"></i>
+            <i class="fas fa-trash-alt action-icon delete-icon delete-valuation" title="Delete" data-id="${valuation.playerValuation.id.playerId}" data-date="${valuation.playerValuation.id.date}"></i>
+          </div>
         </td>
       `;
     return row;
