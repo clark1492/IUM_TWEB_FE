@@ -2,8 +2,60 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #f8f9fa;
 }
 
 main {
     flex: 1;
+    padding: 20px;
 }
+
+.sort-order-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.user-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.big-user-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .modal-header {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .modal-body {
+    background-color: #f8f9fa;
+  }
+  .modal-footer {
+    background-color: #f1f1f1;
+  }
+
+/*
+// https://stackoverflow.com/questions/22044194/sized-table-with-at-most-one-line-of-content-per-cell-with-bootstrap-3
+.cell{
+    display:table-cell;
+        white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+.table{
+    margin:0;
+    padding:0;
+    display:table;
+    table-layout: fixed;
+    width:100%;
+    max-width:100%;
+}*/

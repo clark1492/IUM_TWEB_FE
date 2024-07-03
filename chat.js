@@ -9,11 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const messageArea = document.getElementById('messageArea');
     const messageInput = document.getElementById('messageInput');
     const sendMessageBtn = document.getElementById('sendMessageBtn');
-
+    var msgCount = 0;
     let username = '';
     let room = '';
 
     openChatBtn.addEventListener('click', function () {
+        // Store to cookie? https://www.w3schools.com/js/js_cookies.asp
         if (!username) {
             username = prompt('Please enter your username:');
             if (!username) return;
@@ -78,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const interval = setInterval(function () {
                 openChatBtn.style.backgroundColor = count % 2 === 0 ? 'red' : '';
                 openChatBtn.textContent = count % 2 === 0 ? '❕' : '✉️';
+                openChatBtn.innerHTML += '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'+msgCount+'<span class="visually-hidden sr-only">unread messages</span></span>'
                 count++;
             }, 500);
             setInterval(function () {
@@ -86,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     clearInterval(interval);
                     openChatBtn.style.backgroundColor = '';
                     openChatBtn.textContent = '✉️';
+                    msgCount = 0;
                 }
             }, 200);
         }
@@ -110,5 +113,6 @@ document.addEventListener('DOMContentLoaded', function () {
         outputMessage(message);
         playNotificationSound();
         showNotification();
+        msgCount++;
     });
 });

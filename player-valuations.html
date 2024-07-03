@@ -4,64 +4,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IUMTWEB Dashboard</title>
+  <title>IUMTWEB Soccer Analytics Dashboard</title>
   <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!--<link rel="stylesheet" href="style.css">-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <!-- Custom css -->
   <link rel="stylesheet" href="chat.css">
   <link rel="stylesheet" href="base_style.css">
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">IUM Dashboard</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#" onclick="loadPlayerValuations()">Player Valuations</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" onclick="loadClubs()">Clubs</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./register.html">Register</a>
-        </li>
-        <!-- Other menu items for navigating other parts of the API? -->
-      </ul>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-futbol me-2"></i>
+        IUMTWEB Soccer Analytics Dashboard
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="./index.html">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link active" href="#">Player Valuations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./clubs.html">Player Stats</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./register.html">Register</a>
+          </li>
+          <!-- Other menu items for navigating other parts of the API? -->
+        </ul>
+      </div>
     </div>
   </nav>
 
   <main>
-    <div class="row">
+    <div class="d-flex flex-row align-items-center ">
       <!-- Filters -->
-      <div class="col-md-3">
+      <div class="align-items-center flex-wrap mx-auto">
+        <legend>Search by Club or Player</legend>
         <!-- Filters forms -->
         <form id="searchByClubForm">
-          <div class="form-group">
-            <label for="clubName">Search by Club name:</label>
+          <div class="input-group mt-4 mb-4">
+            <!--<label for="clubName" class="form-label">Search by Club name:</label>-->
             <input type="text" class="form-control" id="clubName" placeholder="Enter Club name" list="clubNameList">
             <datalist id="clubNameList"></datalist>
+            <button type="submit" class="btn btn-primary">Search</button>
           </div>
-          <button type="submit" class="btn btn-primary">Search</button>
         </form>
-      </div>
-      <div class="col-md-6">
         <form id="searchByPlayerForm">
-          <div class="form-group">
-            <label for="playerName">Search by Player Name:</label>
+          <div class="input-group mt-4 mb-4">
+            <!--<label for="playerName" class="form-label">Search by Player Name:</label>-->
             <input type="text" class="form-control" id="playerName" placeholder="Enter Player Name"
               list="playerNameList">
             <datalist id="playerNameList"></datalist>
+            <!--<label for="date" class="form-label">Search by Date:</label>-->
+            <input type="text" placeholder="Start Date" class="form-control" id="startDate" onfocus="(this.type='date')">
+            <input type="text" placeholder="End Date" class="form-control" id="endDate" onfocus="(this.type='date')">
+
+            <!--<input type="date" class="form-control" id="endDate">-->
+
+            <button type="submit" class="btn btn-primary">Search</button>
+
           </div>
-          <div class="form-group">
-            <label for="date">Search by Date:</label>
-            <input type="date" class="form-control" id="date">
-          </div>
-          <button type="submit" class="btn btn-primary">Search</button>
         </form>
       </div>
     </div>
@@ -71,10 +84,15 @@
       <table id="playerValuationsTable" class="table">
         <thead>
           <tr>
-            <th>Player ID</th>
+            <th>Player Name</th>
+            <th>Club</th>
+            <th>Position</th>
+            <th>Foot</th>
+            <th>Height</th>
             <th>Date</th>
             <th>Last Season</th>
             <th>Market Value (EUR)</th>
+            <th>Max Market Value (EUR)</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -85,54 +103,52 @@
     </div>
 
     <!-- Edit Player Valuation Modal -->
-    <div class="modal fade" id="editPlayerValuationModal" tabindex="-1" role="dialog"
-      aria-labelledby="editPlayerValuationModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+    <div class="modal fade" id="editPlayerValuationModal" tabindex="-1" aria-labelledby="editPlayerValuationModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="editPlayerValuationModalLabel">Edit Player Valuation</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form id="editPlayerValuationForm">
-              <div class="form-group">
-                <label for="editLastSeason">Last Season:</label>
+              <div class="mb-3">
+                <label for="editLastSeason" class="form-label">Last Season:</label>
                 <input type="text" class="form-control" id="editLastSeason" placeholder="Enter Last Season">
               </div>
-              <div class="form-group">
-                <label for="editDatetime">Datetime:</label>
+              <div class="mb-3">
+                <label for="editDatetime" class="form-label">Datetime:</label>
                 <input type="datetime-local" class="form-control" id="editDatetime" placeholder="Enter Datetime">
               </div>
-              <div class="form-group">
-                <label for="editDateWeek">Dateweek:</label>
+              <div class="mb-3">
+                <label for="editDateWeek" class="form-label">Dateweek:</label>
                 <input type="text" class="form-control" id="editDateWeek" placeholder="Enter DateWeek">
               </div>
-              <div class="form-group">
-                <label for="editMarketValue">Market Value (EUR):</label>
+              <div class="mb-3">
+                <label for="editMarketValue" class="form-label">Market Value (EUR):</label>
                 <input type="text" class="form-control" id="editMarketValue" placeholder="Enter Market Value">
               </div>
-              <div class="form-group">
-                <label for="editN">N:</label>
+              <div class="mb-3">
+                <label for="editN" class="form-label">N:</label>
                 <input type="number" class="form-control" id="editN" placeholder="Enter N">
               </div>
-              <div class="form-group">
-                <label for="editCurrentClubId">Current Club ID:</label>
-                <input type="text" class="form-control" id="editCurrentClubId" placeholder="Enter Current Club ID">
+              <div class="mb-3">
+                <!-- <label for="editCurrentClubId" class="form-label">Current Club ID:</label>-->
+                <input type="text" class="form-control" id="editCurrentClubId" placeholder="Enter Current Club ID" hidden>
               </div>
-              <div class="form-group">
-                <label for="editPlayerClubDomesticCompetitionId">Player Club Domestic Competition ID:</label>
+              <div class="mb-3">
+                <!--<label for="editPlayerClubDomesticCompetitionId" class="form-label">Player Club Domestic Competition ID:</label>-->
                 <input type="text" class="form-control" id="editPlayerClubDomesticCompetitionId"
-                  placeholder="Enter Player Club Domestic Competition ID">
+                  placeholder="Enter Player Club Domestic Competition ID" hidden>
               </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="editPlayerId" placeholder="Enter Player ID" hidden="true">
+              <div class="mb-3">
+                <input type="text" class="form-control" id="editPlayerId" placeholder="Enter Player ID" hidden>
               </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="editDate" placeholder="Enter Date" hidden="true">
+              <div class="mb-3">
+                <input type="text" class="form-control" id="editDate" placeholder="Enter Date" hidden>
               </div>
-              <button type="submit" class="btn btn-primary">Save Changes</button>
+              <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
             </form>
           </div>
         </div>
@@ -140,109 +156,112 @@
     </div>
 
     <!-- Info Player Modal -->
-    <div class="modal fade" id="editPlayerModal" tabindex="-1" role="dialog" aria-labelledby="editPlayerModalLabel"
+    <div class="modal fade" id="editPlayerModal" tabindex="-1" aria-labelledby="editPlayerModalLabel"
       aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="editPlayerModalLabel">Edit Player </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <div class="d-flex justify-content-center mb-3">
+              <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Player Image" class="rounded-circle big-user-img" id="imgUrl">
+            </div>
             <form id="editPlayerForm">
-              <div class="form-group">
-                <label for="editFirstName">First name:</label>
+              <div class="mb-3">
+                <label for="editFirstName" class="form-label">First name:</label>
                 <input type="text" class="form-control" id="editFirstName" placeholder="Enter first name">
               </div>
-              <div class="form-group">
-                <label for="editLastName">Last name:</label>
+              <div class="mb-3">
+                <label for="editLastName" class="form-label">Last name:</label>
                 <input type="text" class="form-control" id="editLastName" placeholder="Enter last name">
               </div>
-              <div class="form-group">
-                <label for="editLastSeasonPlayer">Last season:</label>
+              <div class="mb-3">
+                <label for="editLastSeasonPlayer" class="form-label">Last season:</label>
                 <input type="text" class="form-control" id="editLastSeasonPlayer" placeholder="Enter last season">
               </div>
-              <div class="form-group">
-                <label for="editCurrentClubIdPlayer">Current Club id:</label>
+              <div class="mb-3">
+                <label for="editCurrentClubIdPlayer" class="form-label">Current Club id:</label>
                 <input type="text" class="form-control" id="editCurrentClubIdPlayer"
                   placeholder="Enter current club id">
               </div>
-              <div class="form-group">
-                <label for="editPlayerCode">Player code:</label>
+              <div class="mb-3">
+                <label for="editPlayerCode" class="form-label">Player code:</label>
                 <input type="text" class="form-control" id="editPlayerCode" placeholder="Enter player code">
               </div>
-              <div class="form-group">
-                <label for="editCountryOfBirth">Country of birth:</label>
+              <div class="mb-3">
+                <label for="editCountryOfBirth" class="form-label">Country of birth:</label>
                 <input type="text" class="form-control" id="editCountryOfBirth" placeholder="Enter country of birth">
               </div>
-              <div class="form-group">
-                <label for="editCityOfBirth">City of birth:</label>
+              <div class="mb-3">
+                <label for="editCityOfBirth" class="form-label">City of birth:</label>
                 <input type="text" class="form-control" id="editCityOfBirth" placeholder="Enter city of birth">
               </div>
-              <div class="form-group">
-                <label for="editCountryOfCitizenship">Country of citizenship:</label>
+              <div class="mb-3">
+                <label for="editCountryOfCitizenship" class="form-label">Country of citizenship:</label>
                 <input type="text" class="form-control" id="editCountryOfCitizenship"
                   placeholder="Enter country of citizenship">
               </div>
-              <div class="form-group">
-                <label for="editDateOfBirth">Date of birth:</label>
-                <input type="text" class="form-control" id="editDateOfBirth" placeholder="Enter date of birth">
+              <div class="mb-3">
+                <label for="editDateOfBirth" class="form-label">DOB:</label>
+                <input type="date" class="form-control" id="editDateOfBirth" placeholder="Enter DateOfBirth">
               </div>
-              <div class="form-group">
-                <label for="editSubPosition">Sub position:</label>
-                <input type="text" class="form-control" id="editSubPosition" placeholder="Enter sub position">
+              <div class="mb-3">
+                <label for="editSubPosition" class="form-label">Primary position:</label>
+                <input type="text" class="form-control" id="editSubPosition"
+                  placeholder="Enter sub position">
               </div>
-              <div class="form-group">
-                <label for="editPosition">Position:</label>
-                <input type="text" class="form-control" id="editPosition" placeholder="Enter position">
+              <div class="mb-3">
+                <label for="editPosition" class="form-label">Primary position:</label>
+                <input type="text" class="form-control" id="editPosition"
+                  placeholder="Enter Primary position">
               </div>
-              <div class="form-group">
-                <label for="editFoot">Foot:</label>
-                <input type="text" class="form-control" id="editFoot" placeholder="Enter foot">
+              <div class="mb-3">
+                <label for="editFoot" class="form-label">Foot:</label>
+                <input type="text" class="form-control" id="editFoot" placeholder="Enter Foot">
               </div>
-              <div class="form-group">
-                <label for="editHeightInCm">Height in cm:</label>
-                <input type="text" class="form-control" id="editHeightInCm" placeholder="Enter height in cm">
+              <div class="mb-3">
+                <label for="editHeightInCm" class="form-label">Height (cm):</label>
+                <input type="number" class="form-control" id="editHeightInCm" placeholder="Enter Height">
               </div>
-              <div class="form-group">
-                <label for="editMarketValueInEur">Market value in eur:</label>
-                <input type="text" class="form-control" id="editMarketValueInEur"
-                  placeholder="Enter market value in eur">
+              <div class="mb-3">
+                <label for="editMarketValueInEur" class="form-label">Market value in eur:</label>
+                <input type="number" class="form-control" id="editMarketValueInEur" placeholder="Enter market value in eur">
               </div>
-              <div class="form-group">
-                <label for="editHighestMarketValueInEur">Highest market value in eur:</label>
-                <input type="text" class="form-control" id="editHighestMarketValueInEur"
-                  placeholder="Enter highest market value in eur">
+              <div class="mb-3">
+                <label for="editHighestMarketValueInEur" class="form-label">Highest market value in eur:</label>
+                <input type="number" class="form-control" id="editHighestMarketValueInEur" placeholder="Enter highest market value in eur">
               </div>
-              <div class="form-group">
-                <label for="editContractExpirationDate">Contract expiration date:</label>
-                <input type="text" class="form-control" id="editContractExpirationDate"
-                  placeholder="Enter contract expiration date">
+              <div class="mb-3">
+                <label for="editContractExpirationDate" class="form-label">Contract expiration date:</label>
+                <input type="text" class="form-control" id="editContractExpirationDate" placeholder="Enter contract expiration date">
               </div>
-              <div class="form-group">
-                <label for="editAgentName">Agent name:</label>
+
+
+              <div class="mb-3">
+                <label for="editAgentName" class="form-label">Agent name:</label>
                 <input type="text" class="form-control" id="editAgentName" placeholder="Enter agent name">
               </div>
-              <div class="form-group">
-                <label for="editImageUrl">Image url:</label>
+              <div class="mb-3">
+                <label for="editImageUrl" class="form-label">Image url:</label>
                 <input type="text" class="form-control" id="editImageUrl" placeholder="Enter image url">
               </div>
-              <div class="form-group">
-                <label for="editUrl">Url:</label>
+              <div class="mb-3">
+                <label for="editUrl" class="form-label">Url:</label>
                 <input type="text" class="form-control" id="editUrl" placeholder="Enter url">
               </div>
-              <div class="form-group">
-                <label for="editCurrentClubDomesticCompetitionId">Current club domestic competition Id:</label>
+              <div class="mb-3">
+                <label for="editCurrentClubDomesticCompetitionId" class="form-label">Current club domestic competition Id:</label>
                 <input type="text" class="form-control" id="editCurrentClubDomesticCompetitionId"
                   placeholder="Enter current club domestic competition Id">
               </div>
-              <div class="form-group">
-                <label for="editCurrentClubName">Current club name:</label>
+              <div class="mb-3">
+                <label for="editCurrentClubName" class="form-label">Current club name:</label>
                 <input type="text" class="form-control" id="editCurrentClubName" placeholder="Enter current club name">
               </div>
-              <button type="submit" class="btn btn-primary">Save Changes</button>
+
+              <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
             </form>
           </div>
         </div>
@@ -252,24 +271,22 @@
 
     <!-- Chat Component -->
     <div id="chatComponent" class="chat-component" aria-labelledby="chatHeader" role="dialog">
-      <div class="chat-header" id="chatHeader">
-        <h3>Chat</h3>
-        <button id="closeChatBtn" class="btn" aria-label="Close Chat">✖️</button>
+        <div class="chat-header" id="chatHeader">
+          <h3>Chat</h3>
+          <button id="closeChatBtn" class="btn" aria-label="Close Chat">✖️</button>
+        </div>
+        <div class="chat-body">
+          <div id="messageArea" class="message-area"></div>
+          <input type="text" id="messageInput" placeholder="Type your message" aria-label="Message input">
+          <button id="sendMessageBtn" class="btn btn-primary" aria-label="Send message">⬆️</button>
+        </div>
       </div>
-      <div class="chat-body">
-        <div id="messageArea" class="message-area"></div>
-        <input type="text" id="messageInput" placeholder="Type your message" aria-label="Message input">
-        <button id="sendMessageBtn" class="btn btn-primary" aria-label="Send message">⬆️</button>
-      </div>
-    </div>
-    <!-- Chat Icon Button -->
-    <button id="openChatBtn" class="chat-icon-btn" aria-label="Open chat">💬</button>
+      <!-- Chat Icon Button -->
+      <button id="openChatBtn" class="chat-icon-btn" aria-label="Open chat">💬</button>
   </main>
-
-
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-3 mt-5">
-    <div class="container">
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
       <p>&copy; 2024 IUM Dashboard. All rights reserved.</p>
       <p>Contact: claudio.gesposito@hotmail.it | Phone: +123 456 7890</p>
     </div>
@@ -280,12 +297,11 @@
     <source src="./assets/audio/pop-alert.mp3" type="audio/mpeg">
     Your browser does not support the audio element!
   </audio>
-
-
   <!-- Bootstrap JS and Axios -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <!-- Custom JavaScript -->
   <script src="app.js"></script>
