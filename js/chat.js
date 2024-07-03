@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         chatComponent.style.display = 'none';
         // Show openChatBtn after closing the chat
         openChatBtn.style.display = 'block';
+        msgCount = 0;
     });
 
     // Send message
