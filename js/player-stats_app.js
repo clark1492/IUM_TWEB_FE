@@ -131,13 +131,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const queryPosition = positionSelection.options[positionSelection.selectedIndex].value;
     const dateStart = seasonSelection.options[seasonSelection.selectedIndex].getAttribute("data-start");
     const dateEnd = seasonSelection.options[seasonSelection.selectedIndex].getAttribute("data-end");
-    let valuations = [];
-    //if (queryName) {
-      axios.get(`${baseUrl}players/search/info?name=${queryName}&position=${queryPosition}&start=${dateStart}&end=${dateEnd}`)
-        .then(resultPlayer => {
-          renderPlayerValuations(resultPlayer.data);
-        }).catch(error => console.error('Error fetching game-appearance from playersearch:', error));
-    //}
+    axios.get(`${baseUrl}players/search/info?name=${queryName}&position=${queryPosition}&start=${dateStart}&end=${dateEnd}`)
+      .then(resultPlayer => {
+        renderPlayerValuations(resultPlayer.data);
+      }).catch(error => console.error('Error fetching game-appearance from playersearch:', error));
   }
 
   function loadPlayerValuationsClubName() {

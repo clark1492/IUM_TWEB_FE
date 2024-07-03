@@ -141,20 +141,27 @@
             <div class="col-12 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Idea: Player Performance Overview</h5>
+                        <h5 class="card-title">Last Week: Player Performance Overview</h5>
                         <div class="table-responsive">
-                            <table class="table table-hover" id="playerPerformanceTable">
-                                <thead>
-                                    <tr>
-                                        <th>Player</th>
-                                        <th>Club</th>
-                                        <th>Goals</th>
-                                        <th>Assists</th>
-                                        <th>Minutes Played</th>
-                                        <th>Market Value</th>
-                                    </tr>
+                            <!-- Player Valuations Table -->
+                            <table id="playerValuationsTable" class="table">
+                                <thead class="text-nowrap">
+                                <tr>
+                                    <th>Position</th>
+                                    <th></th>
+                                    <th>Player</th>
+                                    <th>Club</th>
+                                    <th>Market Value (EUR)</th>
+                                    <th>Red Cards 🟥</th>
+                                    <th>Yellow Cards 🟨</th>
+                                    <th>Assist</th>
+                                    <th>Goals</th>
+                                    <th>Minutes played</th>
+                                    <th>Appearances</th>
+                                </tr>
                                 </thead>
                                 <tbody>
+                                <!-- Player Stats content filled in by js -->
                                 </tbody>
                             </table>
                         </div>

@@ -1,6 +1,16 @@
 const baseUrl = 'http://localhost:3000';
 
-let playerValueChart;
+/* Handle API calls */
+
+function getPlayerInfoLastWeek() {
+    //http://localhost:3000/players/search/info?name=&position=&start=2013-08-20&end=2013-08-27
+    const dateStart = "2013-08-20"; // Can't use last week data as we don't have data for them
+    const dateEnd = "2013-08-27";
+    axios.get(`${baseUrl}/players/search/info?start=${dateStart}&end=${dateEnd}`)
+    .then(resultPlayer => {
+        updatePlayerInfoTable(resultPlayer.data);
+    }).catch(error => console.error('Error fetching data from playersearch:', error));
+}
 
 async function getTopPlayersByMarketValue() {
     try {
@@ -162,6 +172,7 @@ async function getTopGoalScorers() {
     }
 }
 
+/* Handle UI updates */
 function updateTopScorersChart(labels, data) {
     const ctx = document.getElementById('topScorersChart').getContext('2d');
     new Chart(ctx, {
@@ -291,6 +302,7 @@ function updateClubAgeChart(labels, data) {
     });
 }
 
+let playerValueChart;
 function updatePlayerValueChart(labels, data) {
     const ctx = document.getElementById('playerValueChart').getContext('2d');
     
@@ -348,12 +360,48 @@ function updatePlayerValueChart(labels, data) {
     });
 }
 
+/* Handle table row creation */
+function createPlayerInfoRow(playerValuation) {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td>${playerValuation.position}</td>
+        <td>
+        <img src="${playerValuation.image_url}" alt="Player Image" class="rounded-circle user-img">
+        </td>
+        <td>${playerValuation.player_name}</td>
+        <td>${playerValuation.club_name}</td>
+        <td>${playerValuation.market_value}</td>
+        <td>${playerValuation.red_cards}</td>
+        <td>${playerValuation.yellow_cards}</td>
+        <td>${playerValuation.assists}</td>
+        <td>${playerValuation.goals}</td>
+        <td>${playerValuation.minutes_played}</td>
+        <td>${playerValuation.appearances}</td>
+        
+      `;
+    return row;
+  }
 
-
+function updatePlayerInfoTable(valuations) {
+    const playerValuationsTableBody = document.querySelector('#playerValuationsTable tbody');
+    playerValuationsTableBody.innerHTML = '';
+    if (Array.isArray(valuations)) {
+      // If playerValuations is an array
+      valuations.forEach(valuation => {
+        const row = createPlayerInfoRow(valuation);
+        playerValuationsTableBody.appendChild(row);
+      });
+    } else {
+      // If playerValuations is a single object
+      const row = createPlayerInfoRow(playerValuations);
+      playerValuationsTableBody.appendChild(row);
+    }
+  }
 
 document.addEventListener('DOMContentLoaded', () => {
     getTopPlayersByMarketValue();
     getRecentGames();
     getTopClubsByAverageAge();
     getTopGoalScorers();
+    getPlayerInfoLastWeek();
 });
