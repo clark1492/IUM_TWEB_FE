@@ -107,11 +107,11 @@ document.addEventListener('DOMContentLoaded', function () {
         <img src="${playerValuation.image_url}" alt="Player Image" class="rounded-circle user-img">
         </td>
         <td>
-        <a href="#" class="btn btn-link btn-player" data-id="${playerValuation.player_id}">${playerValuation.player_name}</a>
+        <a href="#" class="btn-player" data-id="${playerValuation.player_id}">${playerValuation.player_name}</a>
         </td>
         <td>
           <!--<button type="button" class="btn btn-link btn-club" data-id="${playerValuation.club_id}">${playerValuation.club_name}</button>   -->       
-          <a href="#" class="btn btn-link btn-club" data-id="${playerValuation.club_id}">${playerValuation.club_name}</a>
+          <a href="#" class="btn-club" data-id="${playerValuation.club_id}">${playerValuation.club_name}</a>
         </td>
         <td>${playerValuation.market_value}</td>
         <td>${playerValuation.red_cards}</td>

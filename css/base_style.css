@@ -46,6 +46,9 @@ main {
     background-color: #f1f1f1;
 }
 
+.word-break-all {
+    word-break: break-all;
+}
 /*
 // https://stackoverflow.com/questions/22044194/sized-table-with-at-most-one-line-of-content-per-cell-with-bootstrap-3
 .cell{
