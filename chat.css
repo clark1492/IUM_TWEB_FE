@@ -61,3 +61,8 @@
   cursor: pointer;
   z-index: 9999;
 }
+
+.chat-icon-btn {
+  background: linear-gradient(to right, #4a90e2, #63b3ed);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}

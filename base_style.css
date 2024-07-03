@@ -31,17 +31,20 @@ main {
     object-fit: cover;
     border: 3px solid #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  .modal-header {
+}
+
+.modal-header {
     background-color: #007bff;
     color: #fff;
-  }
-  .modal-body {
+}
+
+.modal-body {
     background-color: #f8f9fa;
-  }
-  .modal-footer {
+}
+
+.modal-footer {
     background-color: #f1f1f1;
-  }
+}
 
 /*
 // https://stackoverflow.com/questions/22044194/sized-table-with-at-most-one-line-of-content-per-cell-with-bootstrap-3
@@ -62,49 +65,81 @@ main {
 }*/
 
 /* Improve table and action column */
+
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f0f2f5;
+}
+
+.table thead th {
+    border-top: none;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
 .action-icons {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .action-icon {
+}
+
+.action-icon {
     font-size: 1.2rem;
     margin: 0 5px;
     cursor: pointer;
     transition: all 0.3s ease;
     opacity: 0.6;
-  }
-  
-  .action-icon:hover {
+}
+
+.action-icon:hover {
     opacity: 1;
     transform: scale(1.1);
-  }
-  
-  .info-icon {
-    color: #17a2b8;
-  }
-  
-  .edit-icon {
-    color: #ffc107;
-  }
-  
-  .delete-icon {
-    color: #dc3545;
-  }
-  
-  /* Hide edit and delete icons by default and show on row hover */
-  .action-icons .edit-icon,
-  .action-icons .delete-icon {
-    display: none;
-  }
-  
-  tr:hover .action-icons .edit-icon,
-  tr:hover .action-icons .delete-icon {
-    display: inline-block;
-  }
+}
 
-  /* Improve overall ui */
+.info-icon {
+    color: #17a2b8;
+}
+
+.edit-icon {
+    color: #ffc107;
+}
+
+.delete-icon {
+    color: #dc3545;
+}
+
+/* Hide edit and delete icons by default and show on row hover */
+.action-icons .edit-icon,
+.action-icons .delete-icon {
+    display: none;
+}
+
+tr:hover .action-icons .edit-icon,
+tr:hover .action-icons .delete-icon {
+    display: inline-block;
+}
+
+/* Improve overall ui */
 
 
 .card {
@@ -119,22 +154,21 @@ main {
     border-radius: 20px;
 }
 
+/* Improve form elements */
 .form-control {
     border-radius: 20px;
 }
 
-.table {
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
+.form-control,
+.form-select {
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
 }
 
-.table th {
-    background-color: #f8f9fa;
-}
-
-.table-hover tbody tr:hover {
-    background-color: #f0f2f5;
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+    border-color: #4a90e2;
 }
 
 .modal-content {

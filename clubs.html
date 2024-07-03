@@ -47,90 +47,104 @@
     </div>
   </nav>
 
-  <main>
-    <div class="d-flex flex-row align-items-center ">
-      <!-- Filters -->
-      <div class="align-items-center flex-wrap mx-auto">
-        <legend>Filters</legend>
-        <!-- Filters Form -->
-        <form id="searchForm">
-          <div class="input-group mt-4 mb-4">
-            <!-- Position Selection -->
-            <select class="form-select my-1 me-sm-2 w-auto" id="positionSelection" aria-label="Select position">
-              <option selected="" value="">Position</option>
-              <option value="Attack">Attack</option>
-              <option value="Goalkeeper">Goalkeeper</option>
-              <option value="Midfield">Midfield</option>
-              <option value="Defender">Defender</option>
-            </select>
-            <!-- Season Selection -->
-            <select class="form-select my-1 me-sm-2 w-auto" id="seasonSelection" aria-label="Select season">
-              <option selected="" data-start="2000-08-20" data-end="2024-08-19" data-season="all">Select season</option>
-              <option data-start="2023-08-20" data-end="2024-08-19" data-season="2023">2023/2024</option>
-              <option data-start="2022-08-20" data-end="2023-08-19" data-season="2022">2022/2023</option>
-              <option data-start="2021-08-20" data-end="2022-08-19" data-season="2021">2021/2022</option>
-              <option data-start="2020-08-20" data-end="2021-08-19" data-season="2020">2020/2021</option>
-              <option data-start="2019-08-20" data-end="2020-08-19" data-season="2019">2019/2020</option>
-              <option data-start="2018-08-20" data-end="2019-08-19" data-season="2018">2018/2019</option>
-              <option data-start="2017-08-20" data-end="2018-08-19" data-season="2017">2017/2018</option>
-              <option data-start="2016-08-20" data-end="2017-08-19" data-season="2016">2016/2017</option>
-              <option data-start="2015-08-20" data-end="2016-08-19" data-season="2015">2015/2016</option>
-              <option data-start="2014-08-20" data-end="2015-08-19" data-season="2014">2014/2015</option>
-              <option data-start="2013-08-20" data-end="2014-08-19" data-season="2013">2013/2014</option>
-            </select>
-            <!-- Search Field -->
-            <select class="form-select my-1 me-sm-2 w-auto" id="paramSearch" aria-label="Select club or player">
-              <option selected="" value="1">Player</option>
-              <option value="2">Club</option>
-            </select>
-            <input type="text" class="form-control my-1 me-sm-2 w-auto" aria-label="Search by player or club"
-              placeholder="Name of player or club">
-            
-            <!-- Sorting Options -->
-            <!--<label for="sortSelection" class="form-label me-2">Sort By:</label>-->
-            <select class="form-select my-1 me-sm-2 w-auto" id="sortSelection" aria-label="Sort by">
-              <option selected="" value="">Sort by ...</option>
-              <option value="position">Sort by Position</option>
-              <option value="player">Sort by Player</option>
-              <option value="club">Sort by Club</option>
-              <option value="marketValue">Sort by Market Value (EUR)</option>
-              <option value="redCards">Sort by Red Cards</option>
-              <option value="yellowCards">Sort by Yellow Cards</option>
-              <option value="assist">Sort by Assist</option>
-              <option value="goals">Sort by Goals</option>
-              <option value="minutesPlayed">Sort by Minutes Played</option>
-              <option value="appearances">Sort by Appearances</option>
-            </select>
-            <button id="sortOrderToggle" class="sort-order-toggle">
-              <i class="fas fa-sort"></i>
-          </button>
+  <main class="container py-5">
+    <div class="row">
+      <div class="col-lg-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title mb-4">Filters</h2>
+            <!-- Filters Form -->
+            <form id="searchForm">
+              <div class="input-group mt-4 mb-4">
+                <!-- Position Selection -->
+                <select class="form-select my-1 me-sm-2 w-auto" id="positionSelection" aria-label="Select position">
+                  <option selected="" value="">Position</option>
+                  <option value="Attack">Attack</option>
+                  <option value="Goalkeeper">Goalkeeper</option>
+                  <option value="Midfield">Midfield</option>
+                  <option value="Defender">Defender</option>
+                </select>
+                <!-- Season Selection -->
+                <select class="form-select my-1 me-sm-2 w-auto" id="seasonSelection" aria-label="Select season">
+                  <option selected="" data-start="2000-08-20" data-end="2024-08-19" data-season="all">Select season
+                  </option>
+                  <option data-start="2023-08-20" data-end="2024-08-19" data-season="2023">2023/2024</option>
+                  <option data-start="2022-08-20" data-end="2023-08-19" data-season="2022">2022/2023</option>
+                  <option data-start="2021-08-20" data-end="2022-08-19" data-season="2021">2021/2022</option>
+                  <option data-start="2020-08-20" data-end="2021-08-19" data-season="2020">2020/2021</option>
+                  <option data-start="2019-08-20" data-end="2020-08-19" data-season="2019">2019/2020</option>
+                  <option data-start="2018-08-20" data-end="2019-08-19" data-season="2018">2018/2019</option>
+                  <option data-start="2017-08-20" data-end="2018-08-19" data-season="2017">2017/2018</option>
+                  <option data-start="2016-08-20" data-end="2017-08-19" data-season="2016">2016/2017</option>
+                  <option data-start="2015-08-20" data-end="2016-08-19" data-season="2015">2015/2016</option>
+                  <option data-start="2014-08-20" data-end="2015-08-19" data-season="2014">2014/2015</option>
+                  <option data-start="2013-08-20" data-end="2014-08-19" data-season="2013">2013/2014</option>
+                </select>
+                <!-- Search Field -->
+                <select class="form-select my-1 me-sm-2 w-auto" id="paramSearch" aria-label="Select club or player">
+                  <option selected="" value="1">Player</option>
+                  <option value="2">Club</option>
+                </select>
+                <input type="text" class="form-control my-1 me-sm-2 w-auto" aria-label="Search by player or club"
+                  placeholder="Name of player or club">
+
+                <!-- Sorting Options -->
+                <!--<label for="sortSelection" class="form-label me-2">Sort By:</label>-->
+                <select class="form-select my-1 me-sm-2 w-auto" id="sortSelection" aria-label="Sort by">
+                  <option selected="" value="">Sort by ...</option>
+                  <option value="position">Sort by Position</option>
+                  <option value="player">Sort by Player</option>
+                  <option value="club">Sort by Club</option>
+                  <option value="marketValue">Sort by Market Value (EUR)</option>
+                  <option value="redCards">Sort by Red Cards</option>
+                  <option value="yellowCards">Sort by Yellow Cards</option>
+                  <option value="assist">Sort by Assist</option>
+                  <option value="goals">Sort by Goals</option>
+                  <option value="minutesPlayed">Sort by Minutes Played</option>
+                  <option value="appearances">Sort by Appearances</option>
+                </select>
+                <button id="sortOrderToggle" class="sort-order-toggle">
+                  <i class="fas fa-sort"></i>
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
 
-    <div class="col-mt-5">
-      <!-- Player Valuations Table -->
-      <table id="playerValuationsTable" class="table">
-        <thead class="text-nowrap">
-          <tr>
-            <th>Position</th>
-            <th></th>
-            <th>Player</th>
-            <th>Club</th>
-            <th>Market Value (EUR)</th>
-            <th>Red Cards 🟥</th>
-            <th>Yellow Cards 🟨</th>
-            <th>Assist</th>
-            <th>Goals</th>
-            <th>Minutes played</th>
-            <th>Appearances</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Player Stats content filled in by js -->
-        </tbody>
-      </table>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title mb-4">Player Stats</h2>
+            <div class="table-responsive">
+
+              <!-- Player Valuations Table -->
+              <table id="playerValuationsTable" class="table">
+                <thead class="text-nowrap">
+                  <tr>
+                    <th>Position</th>
+                    <th></th>
+                    <th>Player</th>
+                    <th>Club</th>
+                    <th>Market Value (EUR)</th>
+                    <th>Red Cards 🟥</th>
+                    <th>Yellow Cards 🟨</th>
+                    <th>Assist</th>
+                    <th>Goals</th>
+                    <th>Minutes played</th>
+                    <th>Appearances</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Player Stats content filled in by js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Club Info Model -->
@@ -159,8 +173,7 @@
               </div>
               <div class="form-group">
                 <label for="editTotalMarketValue">Total Market Value:</label>
-                <input type="text" class="form-control" id="editTotalMarketValue"
-                  placeholder="total market value">
+                <input type="text" class="form-control" id="editTotalMarketValue" placeholder="total market value">
               </div>
               <div class="form-group">
                 <label for="editSquadSize">Squad size:</label>
@@ -194,8 +207,7 @@
               </div>
               <div class="form-group">
                 <label for="editNetTransferRecord">Net Transfer Record:</label>
-                <input type="text" class="form-control" id="editNetTransferRecord"
-                  placeholder="net transfer record">
+                <input type="text" class="form-control" id="editNetTransferRecord" placeholder="net transfer record">
               </div>
               <div class="form-group">
                 <label for="editCoachName">Coach Name:</label>
@@ -286,9 +298,11 @@
           </div>
           <div class="modal-body">
             <div class="d-flex justify-content-center mb-3">
-              <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Player Image" class="rounded-circle big-user-img" id="imgUrl">
+              <img
+                src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
+                alt="Player Image" class="rounded-circle big-user-img" id="imgUrl">
             </div>
-              <form id="editPlayerForm">
+            <form id="editPlayerForm">
               <div class="form-group">
                 <label for="editFirstName">First name:</label>
                 <input type="text" class="form-control" id="editFirstName" placeholder="first name">
@@ -303,8 +317,7 @@
               </div>
               <div class="form-group">
                 <label for="editCurrentClubIdPlayer">Current Club id:</label>
-                <input type="text" class="form-control" id="editCurrentClubIdPlayer"
-                  placeholder="current club id">
+                <input type="text" class="form-control" id="editCurrentClubIdPlayer" placeholder="current club id">
               </div>
               <div class="form-group">
                 <label for="editPlayerCode">Player code:</label>
@@ -345,8 +358,7 @@
               </div>
               <div class="form-group">
                 <label for="editMarketValueInEur">Market value in eur:</label>
-                <input type="text" class="form-control" id="editMarketValueInEur"
-                  placeholder="market value in eur">
+                <input type="text" class="form-control" id="editMarketValueInEur" placeholder="market value in eur">
               </div>
               <div class="form-group">
                 <label for="editHighestMarketValueInEur">Highest market value in eur:</label>
