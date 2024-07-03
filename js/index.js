@@ -370,7 +370,6 @@ function createPlayerInfoRow(playerValuation) {
         </td>
         <td>${playerValuation.player_name}</td>
         <td>${playerValuation.club_name}</td>
-        <td>${playerValuation.market_value}</td>
         <td>${playerValuation.red_cards}</td>
         <td>${playerValuation.yellow_cards}</td>
         <td>${playerValuation.assists}</td>
