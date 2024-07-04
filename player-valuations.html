@@ -200,13 +200,17 @@
                 <input type="text" class="form-control" id="editLastName" placeholder="Enter last name">
               </div>
               <div class="mb-3">
+                <label for="editName" class="form-label">Full Name:</label>
+                <input type="text" class="form-control" id="editName" placeholder="Enter full name">
+              </div>
+              <div class="mb-3">
                 <label for="editLastSeasonPlayer" class="form-label">Last season:</label>
                 <input type="text" class="form-control" id="editLastSeasonPlayer" placeholder="Enter last season">
               </div>
               <div class="mb-3">
-                <label for="editCurrentClubIdPlayer" class="form-label">Current Club id:</label>
+                <!--<label for="editCurrentClubIdPlayer" class="form-label">Current Club id:</label>-->
                 <input type="text" class="form-control" id="editCurrentClubIdPlayer"
-                  placeholder="Enter current club id">
+                  placeholder="Enter current club id" hidden>
               </div>
               <div class="mb-3">
                 <label for="editPlayerCode" class="form-label">Player code:</label>
@@ -261,7 +265,6 @@
                   placeholder="Enter contract expiration date">
               </div>
 
-
               <div class="mb-3">
                 <label for="editAgentName" class="form-label">Agent name:</label>
                 <input type="text" class="form-control" id="editAgentName" placeholder="Enter agent name">
@@ -284,7 +287,9 @@
                 <label for="editCurrentClubName" class="form-label">Current club name:</label>
                 <input type="text" class="form-control" id="editCurrentClubName" placeholder="Enter current club name">
               </div>
-
+              <div class="mb-3">
+                <input type="text" id="editPPlayerId" hidden>
+              </div>
               <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
             </form>
           </div>
