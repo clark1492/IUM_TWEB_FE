@@ -129,9 +129,11 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Player valuation deleted successfully');
             // Refresh player valuations table
             refreshPlayerValuations();
+            createToast('Player Valuation Deleted', 'Player valuation deleted successfully');
           })
           .catch(error => {
             console.error('Error deleting player valuation:', error);
+            createToast('Error in player valuation delete', 'Error when deleting the player valuation', true);
           });
     }
   }
