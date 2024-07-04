@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
           console.error('Error updating player valuation:', error);
-          createToast('Error Updating Player Valuation', 'An error occurred while updating player valuation');
+          createToast('Error Updating Player Valuation', 'An error occurred while updating player valuation', true);
           // Handle error
         });
   });
@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {
           console.error('Error updating player valuation:', error);
           // Handle error
-          createToast('Error Updating Player Info', 'An error occurred while updating player info');
+          createToast('Error Updating Player Info', 'An error occurred while updating player info', true);
         });
   });
 
@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  // Toast to handle feedback about operation
+  // Toast to handle feedback about update operations
   const toastContainer = document.querySelector('.toast-container');
   //https://getbootstrap.com/docs/5.3/components/toasts/
   function createToast(title, message, isError = false) {
@@ -403,9 +403,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //Fill headerSquareBox with the correct color
     var color = isError ? colorError : colorOk;
 
-    if (!isError) {
-      headerSquareBox = `<svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="${color}"></rect></svg>`;
-    }
+    headerSquareBox = `<svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="${color}"></rect></svg>`;
     const toastHtml = `
       <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
