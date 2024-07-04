@@ -155,66 +155,66 @@
             <form id="editClubForm">
               <div class="form-group">
                 <label for="editName">Name:</label>
-                <input type="text" class="form-control" id="editName" placeholder="Club name">
+                <input type="text" class="form-control" id="editName" placeholder="Club name" readonly>
               </div>
               <div class="form-group">
                 <label for="editClubCode">Club code:</label>
-                <input type="text" class="form-control" id="editClubCode" placeholder="Club code">
+                <input type="text" class="form-control" id="editClubCode" placeholder="Club code" readonly>
               </div>
               <div class="form-group">
                 <label for="editDomesticCompetitionId">Domestic Competition id:</label>
                 <input type="text" class="form-control" id="editDomesticCompetitionId"
-                  placeholder="Domestic Competition Id">
+                  placeholder="Domestic Competition Id" hidden="true">
               </div>
               <div class="form-group">
                 <label for="editTotalMarketValue">Total Market Value:</label>
-                <input type="text" class="form-control" id="editTotalMarketValue" placeholder="total market value">
+                <input type="text" class="form-control" id="editTotalMarketValue" placeholder="total market value" readonly>
               </div>
               <div class="form-group">
                 <label for="editSquadSize">Squad size:</label>
-                <input type="text" class="form-control" id="editSquadSize" placeholder="squad size">
+                <input type="text" class="form-control" id="editSquadSize" placeholder="squad size" readonly>
               </div>
               <div class="form-group">
                 <label for="editAverageAge">Average age:</label>
-                <input type="text" class="form-control" id="editAverageAge" placeholder="average age">
+                <input type="text" class="form-control" id="editAverageAge" placeholder="average age" readonly>
               </div>
               <div class="form-group">
                 <label for="editForeignersNumber">Foreigners Number:</label>
-                <input type="text" class="form-control" id="editForeignersNumber" placeholder="foreigners number">
+                <input type="text" class="form-control" id="editForeignersNumber" placeholder="foreigners number" readonly>
               </div>
               <div class="form-group">
                 <label for="editForeignersPercentage">Foreigners Percentage:</label>
                 <input type="text" class="form-control" id="editForeignersPercentage"
-                  placeholder="foreigners percentage">
+                  placeholder="foreigners percentage" readonly>
               </div>
               <div class="form-group">
                 <label for="editNationalTeamPlayers">National Team Players:</label>
                 <input type="text" class="form-control" id="editNationalTeamPlayers"
-                  placeholder="national team players">
+                  placeholder="national team players" readonly>
               </div>
               <div class="form-group">
                 <label for="editStadiumName">Stadium Name:</label>
-                <input type="text" class="form-control" id="editStadiumName" placeholder="stadium name">
+                <input type="text" class="form-control" id="editStadiumName" placeholder="stadium name" readonly>
               </div>
               <div class="form-group">
                 <label for="editStadiumSeats">Stadium Seats:</label>
-                <input type="text" class="form-control" id="editStadiumSeats" placeholder="stadium seats">
+                <input type="text" class="form-control" id="editStadiumSeats" placeholder="stadium seats" readonly>
               </div>
               <div class="form-group">
                 <label for="editNetTransferRecord">Net Transfer Record:</label>
-                <input type="text" class="form-control" id="editNetTransferRecord" placeholder="net transfer record">
+                <input type="text" class="form-control" id="editNetTransferRecord" placeholder="net transfer record" readonly>
               </div>
               <div class="form-group">
                 <label for="editCoachName">Coach Name:</label>
-                <input type="text" class="form-control" id="editCoachName" placeholder="coach name">
+                <input type="text" class="form-control" id="editCoachName" placeholder="coach name" readonly>
               </div>
               <div class="form-group">
                 <label for="editLastSeasonClub">Last Season:</label>
-                <input type="text" class="form-control" id="editLastSeasonClub" placeholder="last season">
+                <input type="text" class="form-control" id="editLastSeasonClub" placeholder="last season" readonly>
               </div>
               <div class="form-group">
                 <label for="editUrlClub">Url:</label>
-                <input type="text" class="form-control" id="editUrlClub" placeholder="url">
+                <input type="text" class="form-control" id="editUrlClub" placeholder="url" readonly>
               </div>
               <!--<button type="submit" class="btn btn-primary mt-4">Save Changes</button>-->
             </form>
@@ -226,62 +226,7 @@
       </div>
     </div>
 
-    <!-- Edit Player Valuation Modal -->
-    <div class="modal fade" id="editPlayerValuationModal" tabindex="-1" role="dialog"
-      aria-labelledby="editPlayerValuationModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editPlayerValuationModalLabel">Player Valuation Info</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form id="editPlayerValuationForm">
-              <div class="form-group">
-                <label for="editLastSeason">Last Season:</label>
-                <input type="text" class="form-control" id="editLastSeason" placeholder="Last Season">
-              </div>
-              <div class="form-group">
-                <label for="editDatetime">Datetime:</label>
-                <input type="datetime-local" class="form-control" id="editDatetime" placeholder="Datetime">
-              </div>
-              <div class="form-group">
-                <label for="editDateWeek">Dateweek:</label>
-                <input type="text" class="form-control" id="editDateWeek" placeholder="DateWeek">
-              </div>
-              <div class="form-group">
-                <label for="editMarketValue">Market Value (EUR):</label>
-                <input type="text" class="form-control" id="editMarketValue" placeholder="Market Value">
-              </div>
-              <div class="form-group">
-                <label for="editN">N:</label>
-                <input type="number" class="form-control" id="editN" placeholder="N">
-              </div>
-              <div class="form-group">
-                <label for="editCurrentClubId">Current Club ID:</label>
-                <input type="text" class="form-control" id="editCurrentClubId" placeholder="Current Club ID">
-              </div>
-              <div class="form-group">
-                <label for="editPlayerClubDomesticCompetitionId">Player Club Domestic Competition ID:</label>
-                <input type="text" class="form-control" id="editPlayerClubDomesticCompetitionId"
-                  placeholder="Player Club Domestic Competition ID">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="editPlayerId" placeholder="Player ID" hidden="true">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="editDate" placeholder="Date" hidden="true">
-              </div>
-              <!--<button type="submit" class="btn btn-primary mt-4">Save Changes</button>-->
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    
     <!-- Info Player Modal -->
     <div class="modal fade" id="editPlayerModal" tabindex="-1" role="dialog" aria-labelledby="editPlayerModalLabel"
       aria-hidden="true">
@@ -300,91 +245,91 @@
             <form id="editPlayerForm">
               <div class="form-group">
                 <label for="editFirstName">First name:</label>
-                <input type="text" class="form-control" id="editFirstName" placeholder="first name">
+                <input type="text" class="form-control" id="editFirstName" placeholder="first name" readonly>
               </div>
               <div class="form-group">
                 <label for="editLastName">Last name:</label>
-                <input type="text" class="form-control" id="editLastName" placeholder="last name">
+                <input type="text" class="form-control" id="editLastName" placeholder="last name" readonly>
               </div>
               <div class="form-group">
                 <label for="editLastSeasonPlayer">Last season:</label>
-                <input type="text" class="form-control" id="editLastSeasonPlayer" placeholder="last season">
+                <input type="text" class="form-control" id="editLastSeasonPlayer" placeholder="last season" readonly>
               </div>
               <div class="form-group">
                 <label for="editCurrentClubIdPlayer">Current Club id:</label>
-                <input type="text" class="form-control" id="editCurrentClubIdPlayer" placeholder="current club id">
+                <input type="text" class="form-control" id="editCurrentClubIdPlayer" placeholder="current club id" readonly>
               </div>
               <div class="form-group">
                 <label for="editPlayerCode">Player code:</label>
-                <input type="text" class="form-control" id="editPlayerCode" placeholder="player code">
+                <input type="text" class="form-control" id="editPlayerCode" placeholder="player code" readonly>
               </div>
               <div class="form-group">
                 <label for="editCountryOfBirth">Country of birth:</label>
-                <input type="text" class="form-control" id="editCountryOfBirth" placeholder="country of birth">
+                <input type="text" class="form-control" id="editCountryOfBirth" placeholder="country of birth" readonly >
               </div>
               <div class="form-group">
                 <label for="editCityOfBirth">City of birth:</label>
-                <input type="text" class="form-control" id="editCityOfBirth" placeholder="city of birth">
+                <input type="text" class="form-control" id="editCityOfBirth" placeholder="city of birth" readonly>
               </div>
               <div class="form-group">
                 <label for="editCountryOfCitizenship">Country of citizenship:</label>
                 <input type="text" class="form-control" id="editCountryOfCitizenship"
-                  placeholder="country of citizenship">
+                  placeholder="country of citizenship" readonly>
               </div>
               <div class="form-group">
                 <label for="editDateOfBirth">Date of birth:</label>
-                <input type="text" class="form-control" id="editDateOfBirth" placeholder="date of birth">
+                <input type="text" class="form-control" id="editDateOfBirth" placeholder="date of birth" readonly>
               </div>
               <div class="form-group">
                 <label for="editSubPosition">Sub position:</label>
-                <input type="text" class="form-control" id="editSubPosition" placeholder="sub position">
+                <input type="text" class="form-control" id="editSubPosition" placeholder="sub position" readonly>
               </div>
               <div class="form-group">
                 <label for="editPosition">Position:</label>
-                <input type="text" class="form-control" id="editPosition" placeholder="position">
+                <input type="text" class="form-control" id="editPosition" placeholder="position" readonly>
               </div>
               <div class="form-group">
                 <label for="editFoot">Foot:</label>
-                <input type="text" class="form-control" id="editFoot" placeholder="foot">
+                <input type="text" class="form-control" id="editFoot" placeholder="foot" readonly>
               </div>
               <div class="form-group">
                 <label for="editHeightInCm">Height in cm:</label>
-                <input type="text" class="form-control" id="editHeightInCm" placeholder="height in cm">
+                <input type="text" class="form-control" id="editHeightInCm" placeholder="height in cm" readonly>
               </div>
               <div class="form-group">
                 <label for="editMarketValueInEur">Market value in eur:</label>
-                <input type="text" class="form-control" id="editMarketValueInEur" placeholder="market value in eur">
+                <input type="text" class="form-control" id="editMarketValueInEur" placeholder="market value in eur" readonly>
               </div>
               <div class="form-group">
                 <label for="editHighestMarketValueInEur">Highest market value in eur:</label>
                 <input type="text" class="form-control" id="editHighestMarketValueInEur"
-                  placeholder="highest market value in eur">
+                  placeholder="highest market value in eur" readonly>
               </div>
               <div class="form-group">
                 <label for="editContractExpirationDate">Contract expiration date:</label>
                 <input type="text" class="form-control" id="editContractExpirationDate"
-                  placeholder="contract expiration date">
+                  placeholder="contract expiration date" readonly>
               </div>
               <div class="form-group">
                 <label for="editAgentName">Agent name:</label>
-                <input type="text" class="form-control" id="editAgentName" placeholder="agent name">
+                <input type="text" class="form-control" id="editAgentName" placeholder="agent name" readonly>
               </div>
               <div class="form-group">
                 <label for="editImageUrl">Image url:</label>
-                <input type="text" class="form-control" id="editImageUrl" placeholder="image url">
+                <input type="text" class="form-control" id="editImageUrl" placeholder="image url" readonly>
               </div>
               <div class="form-group">
                 <label for="editUrl">Url:</label>
-                <input type="text" class="form-control" id="editUrl" placeholder="url">
+                <input type="text" class="form-control" id="editUrl" placeholder="url" readonly>
               </div>
               <div class="form-group">
                 <label for="editCurrentClubDomesticCompetitionId">Current club domestic competition Id:</label>
                 <input type="text" class="form-control" id="editCurrentClubDomesticCompetitionId"
-                  placeholder="current club domestic competition Id">
+                  placeholder="current club domestic competition Id" readonly>
               </div>
               <div class="form-group">
                 <label for="editCurrentClubName">Current club name:</label>
-                <input type="text" class="form-control" id="editCurrentClubName" placeholder="current club name">
+                <input type="text" class="form-control" id="editCurrentClubName" placeholder="current club name" readonly>
               </div>
             </form>
           </div>
