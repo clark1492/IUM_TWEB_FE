@@ -80,9 +80,15 @@ document.addEventListener('DOMContentLoaded', function () {
         <td>${valuation.playerValuation.marketValueInEur}</td>
         <td>${valuation.player.highestMarketValueInEur}</td>
 
-        <td>
+        <!--<td>
           <button class="btn btn-primary btn-sm edit-valuation" data-id="${valuation.playerValuation.id.playerId}" data-date="${valuation.playerValuation.id.date}">Edit</button>
           <button class="btn btn-danger btn-sm delete-valuation" data-id="${valuation.playerValuation.id.playerId}" data-date="${valuation.playerValuation.id.date}">Delete</button>
+        </td>-->
+        <td>
+          <div class="action-icons">
+            <i class="fas fa-edit action-icon edit-icon edit-valuation" data-id="${valuation.playerValuation.id.playerId}" data-date="${valuation.playerValuation.id.date}"></i>
+            <i class="fas fa-trash-alt action-icon delete-icon delete-valuation" title="Delete" data-id="${valuation.playerValuation.id.playerId}" data-date="${valuation.playerValuation.id.date}"></i>
+          </div>
         </td>
       `;
     return row;
@@ -159,6 +165,8 @@ document.addEventListener('DOMContentLoaded', function () {
           document.getElementById("editUrl").value = playerData.url;
           document.getElementById("editCurrentClubDomesticCompetitionId").value = playerData.currentClubDomesticCompetitionId;
           document.getElementById("editCurrentClubName").value = playerData.currentClubName;
+          document.getElementById("editPPlayerId").value = playerId;
+          document.getElementById("editName").value = playerData.name;
 
           $('#editPlayerModal').modal('show');
         })
@@ -170,11 +178,18 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function loadPlayerValuations() {
-    axios.get(`${baseUrl}player-valuations/page`)
+    /*axios.get(`${baseUrl}player-valuations/page`)
         .then(response => {
           renderPlayerValuations(response.data);
         })
-        .catch(error => console.error('Error fetching player valuations:', error));
+        .catch(error => console.error('Error fetching player valuations:', error));*/
+        axios.get(`${baseUrl}player-valuations/info/club/370?pageSize=20`)
+          .then(response => {
+            renderPlayerValuations(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching player valuations:', error);
+          });
   }
 
   // Function to refresh Player Valuations table
@@ -253,6 +268,77 @@ document.addEventListener('DOMContentLoaded', function () {
           console.log('Player valuation updated successfully:', response.data);
           // Hide the modal after successful update
           $('#editPlayerValuationModal').modal('hide');
+          // Refresh the player valuation table
+          refreshPlayerValuations();
+        })
+        .catch(error => {
+          console.error('Error updating player valuation:', error);
+          // Handle error
+        });
+  });
+
+  document.getElementById('editPlayerForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent default form submission
+    // Get input values
+    const firstName = document.getElementById('editFirstName').value;
+    const lastName = document.getElementById('editLastName').value;
+    const lastSeason = document.getElementById('editLastSeasonPlayer').value;
+    const currentClubId = document.getElementById('editCurrentClubIdPlayer').value;
+    const playerCode = document.getElementById('editPlayerCode').value;
+    const countryOfBirth = document.getElementById('editCountryOfBirth').value;
+    const cityOfBirth = document.getElementById('editCityOfBirth').value;
+    const countryOfCitizenship = document.getElementById('editCountryOfCitizenship').value;
+    const dateOfBirth = document.getElementById('editDateOfBirth').value;
+    const subPosition = document.getElementById('editSubPosition').value;
+    const position = document.getElementById('editPosition').value;
+    const foot = document.getElementById('editFoot').value;
+    const heightInCm = document.getElementById('editHeightInCm').value;
+    const marketValueInEur = document.getElementById('editMarketValueInEur').value;
+    const highestMarketValueInEur = document.getElementById('editHighestMarketValueInEur').value;
+    const contractExpirationDate = document.getElementById('editContractExpirationDate').value;
+    const agentName = document.getElementById('editAgentName').value;
+    const imageUrl = document.getElementById('editImageUrl').value;
+    const url = document.getElementById('editUrl').value;
+    const currentClubDomesticCompetitionId = document.getElementById('editCurrentClubDomesticCompetitionId').value;
+    const currentClubName = document.getElementById('editCurrentClubName').value;
+    const playerValuationId = document.getElementById('editPlayerId').value;
+    const playerName = document.getElementById('editName').value;
+    // Get player ID from hidden input
+    const playerId = document.getElementById('editPPlayerId').value;
+
+    // Prepare data for update
+    const updatedPlayer = {
+      playerId: playerId,
+      firstName: firstName,
+      lastName: lastName,
+      name: playerName,
+      lastSeason: lastSeason,
+      currentClubId: currentClubId,
+      playerCode: playerCode,
+      countryOfBirth: countryOfBirth,
+      cityOfBirth: cityOfBirth,
+      countryOfCitizenship: countryOfCitizenship,
+      dateOfBirth: dateOfBirth,
+      subPosition: subPosition,
+      position: position,
+      foot: foot,
+      heightInCm: heightInCm,
+      marketValueInEur: marketValueInEur,
+      highestMarketValueInEur: highestMarketValueInEur,
+      contractExpirationDate: contractExpirationDate,
+      agentName: agentName,
+      imageUrl: imageUrl,
+      url: url,
+      currentClubDomesticCompetitionId: currentClubDomesticCompetitionId,
+      currentClubName: currentClubName,
+      playerValuationId: playerValuationId
+    };
+   
+    axios.put(`http://localhost:3000/players/${playerId}/`, updatedPlayer)
+        .then(response => {
+          console.log('Player info updated successfully:', response.data);
+          // Hide the modal after successful update
+          $('#editPlayerId').modal('hide');
           // Refresh the player valuation table
           refreshPlayerValuations();
         })

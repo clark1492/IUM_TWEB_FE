@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         chatComponent.style.display = 'none';
         // Show openChatBtn after closing the chat
         openChatBtn.style.display = 'block';
+        msgCount = 0;
     });
 
     // Send message
@@ -62,6 +63,11 @@ document.addEventListener('DOMContentLoaded', function () {
         div.innerHTML = `<p><strong>${message.username}: </strong>${message.message}</p>`;
         messageArea.appendChild(div);
         messageArea.scrollTop = messageArea.scrollHeight;
+        if(message.username !== username){
+            playNotificationSound();
+            showNotification();
+            msgCount++;
+        }
     }
 
     // Play notification sound (https://www.w3schools.com/jsref/met_audio_play.asp)
@@ -111,8 +117,5 @@ document.addEventListener('DOMContentLoaded', function () {
     // Listen for chat-message event
     socket.on('chat-message', function (message) {
         outputMessage(message);
-        playNotificationSound();
-        showNotification();
-        msgCount++;
     });
 });

@@ -4,14 +4,19 @@
   right: 20px;
   width: 300px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 15px;
   background-color: #fff;
   z-index: 9999;
   display: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
 }
 
 .chat-header {
-  background-color: #007bff;
+  /*background-color: #007bff;*/
+  background: linear-gradient(to right, #4a90e2, #63b3ed);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   color: #fff;
   padding: 10px;
   display: flex;
@@ -55,4 +60,9 @@
   font-size: 24px;
   cursor: pointer;
   z-index: 9999;
+}
+
+.chat-icon-btn {
+  background: linear-gradient(to right, #4a90e2, #63b3ed);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }

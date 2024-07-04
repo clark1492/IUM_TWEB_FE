@@ -11,9 +11,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="chat.css">
-    <link rel="stylesheet" href="base_style.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/chat.css">
+    <link rel="stylesheet" href="./css/base_style.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -37,7 +37,7 @@
                         <a class="nav-link" href="./player-valuations.html">Player Valuations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./clubs.html">Player Stats</a>
+                        <a class="nav-link" href="./player-stats.html">Player Stats</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./register.html">Register</a>
@@ -94,7 +94,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Idea: Goals Distribution by Position</h5>
-                        <canvas id="goalsByPositionChart"></canvas>
+                        <div class="chart-container" style="position: relative; height:40vh; width:60vw">
+                            <canvas id="goalsByPositionChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -141,20 +143,26 @@
             <div class="col-12 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Idea: Player Performance Overview</h5>
+                        <h5 class="card-title">Last Week: Player Performance Overview</h5>
                         <div class="table-responsive">
-                            <table class="table table-hover" id="playerPerformanceTable">
-                                <thead>
-                                    <tr>
-                                        <th>Player</th>
-                                        <th>Club</th>
-                                        <th>Goals</th>
-                                        <th>Assists</th>
-                                        <th>Minutes Played</th>
-                                        <th>Market Value</th>
-                                    </tr>
+                            <!-- Player Valuations Table -->
+                            <table id="playerValuationsTable" class="table">
+                                <thead class="text-nowrap">
+                                <tr>
+                                    <th>Position</th>
+                                    <th></th>
+                                    <th>Player</th>
+                                    <th>Club</th>
+                                    <th>Red Cards 🟥</th>
+                                    <th>Yellow Cards 🟨</th>
+                                    <th>Assist</th>
+                                    <th>Goals</th>
+                                    <th>Minutes played</th>
+                                    <th>Appearances</th>
+                                </tr>
                                 </thead>
                                 <tbody>
+                                <!-- Player Stats content filled in by js -->
                                 </tbody>
                             </table>
                         </div>
@@ -203,8 +211,8 @@
     <!-- Socket.io -->
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <!-- Custom JavaScript -->
-    <script src="index.js"></script>
-    <script src="chat.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/chat.js"></script>
 
 </body>
 

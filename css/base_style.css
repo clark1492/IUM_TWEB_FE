@@ -1,0 +1,186 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+.sort-order-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.user-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.big-user-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.modal-body {
+    background-color: #f8f9fa;
+}
+
+.modal-footer {
+    background-color: #f1f1f1;
+}
+
+.word-break-all {
+    word-break: break-all;
+}
+/*
+// https://stackoverflow.com/questions/22044194/sized-table-with-at-most-one-line-of-content-per-cell-with-bootstrap-3
+.cell{
+    display:table-cell;
+        white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+.table{
+    margin:0;
+    padding:0;
+    display:table;
+    table-layout: fixed;
+    width:100%;
+    max-width:100%;
+}*/
+
+/* Improve table and action column */
+
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f0f2f5;
+}
+
+.table thead th {
+    border-top: none;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.action-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-icon {
+    font-size: 1.2rem;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.action-icon:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.info-icon {
+    color: #17a2b8;
+}
+
+.edit-icon {
+    color: #ffc107;
+}
+
+.delete-icon {
+    color: #dc3545;
+}
+
+/* Hide edit and delete icons by default and show on row hover */
+.action-icons .edit-icon,
+.action-icons .delete-icon {
+    display: none;
+}
+
+tr:hover .action-icons .edit-icon,
+tr:hover .action-icons .delete-icon {
+    display: inline-block;
+}
+
+/* Improve overall ui */
+
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, #4a90e2, #63b3ed);
+    border: none;
+    border-radius: 20px;
+}
+
+/* Improve form elements */
+.form-control {
+    border-radius: 20px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+    border-color: #4a90e2;
+}
+
+.modal-content {
+    border-radius: 15px;
+}
+
+.modal-header {
+    background: linear-gradient(to right, #4a90e2, #63b3ed);
+    color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}

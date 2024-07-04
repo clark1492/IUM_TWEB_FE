@@ -107,13 +107,13 @@ document.addEventListener('DOMContentLoaded', function () {
         <img src="${playerValuation.image_url}" alt="Player Image" class="rounded-circle user-img">
         </td>
         <td>
-        <a href="#" class="btn btn-link btn-player" data-id="${playerValuation.player_id}">${playerValuation.player_name}</a>
+        <a href="#" class="btn-player" data-id="${playerValuation.player_id}">${playerValuation.player_name}</a>
         </td>
         <td>
           <!--<button type="button" class="btn btn-link btn-club" data-id="${playerValuation.club_id}">${playerValuation.club_name}</button>   -->       
-          <a href="#" class="btn btn-link btn-club" data-id="${playerValuation.club_id}">${playerValuation.club_name}</a>
+          <a href="#" class="btn-club" data-id="${playerValuation.club_id}">${playerValuation.club_name}</a>
         </td>
-        <td>${playerValuation.market_value}</td>
+        <td>${playerValuation.market_value} €</td>
         <td>${playerValuation.red_cards}</td>
         <td>${playerValuation.yellow_cards}</td>
         <td>${playerValuation.assists}</td>
@@ -131,13 +131,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const queryPosition = positionSelection.options[positionSelection.selectedIndex].value;
     const dateStart = seasonSelection.options[seasonSelection.selectedIndex].getAttribute("data-start");
     const dateEnd = seasonSelection.options[seasonSelection.selectedIndex].getAttribute("data-end");
-    let valuations = [];
-    //if (queryName) {
-      axios.get(`${baseUrl}players/search/info?name=${queryName}&position=${queryPosition}&start=${dateStart}&end=${dateEnd}`)
-        .then(resultPlayer => {
-          renderPlayerValuations(resultPlayer.data);
-        }).catch(error => console.error('Error fetching game-appearance from playersearch:', error));
-    //}
+    axios.get(`${baseUrl}players/search/info?name=${queryName}&position=${queryPosition}&start=${dateStart}&end=${dateEnd}`)
+      .then(resultPlayer => {
+        renderPlayerValuations(resultPlayer.data);
+      }).catch(error => console.error('Error fetching game-appearance from playersearch:', error));
   }
 
   function loadPlayerValuationsClubName() {

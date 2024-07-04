@@ -1,6 +1,16 @@
 const baseUrl = 'http://localhost:3000';
 
-let playerValueChart;
+/* Handle API calls */
+
+function getPlayerInfoLastWeek() {
+    //http://localhost:3000/players/search/info?name=&position=&start=2013-08-20&end=2013-08-27
+    const dateStart = "2013-08-20"; // Can't use last week data as we don't have data for them
+    const dateEnd = "2013-08-27";
+    axios.get(`${baseUrl}/players/search/info?start=${dateStart}&end=${dateEnd}`)
+    .then(resultPlayer => {
+        updatePlayerInfoTable(resultPlayer.data);
+    }).catch(error => console.error('Error fetching data from playersearch:', error));
+}
 
 async function getTopPlayersByMarketValue() {
     try {
@@ -162,6 +172,32 @@ async function getTopGoalScorers() {
     }
 }
 
+async function getGoalsByPosition() {
+    try {
+        let dateStart = "2000-01-01"; // TODO: Eventually add support to customize it from the page
+        let dateEnd = "3000-12-31";
+        let queryName = '';
+        let queryPosition = '';
+        const appearancesResponse = await axios.get(`${baseUrl}/players/search/info?name=${queryName}&position=${queryPosition}&start=${dateStart}&end=${dateEnd}`);
+        
+        const appearances = appearancesResponse.data;
+        
+        // Process data to count goals by position
+        const goalsByPosition = appearances.reduce((acc, appearance) => {
+            if (appearance.goals) {
+                acc[appearance.position] = (acc[appearance.position] || 0) + 1;
+            }
+            return acc;
+        }, {});
+        
+        // Update chart
+        updateGoalsByPositionChart(Object.keys(goalsByPosition), Object.values(goalsByPosition));
+    } catch (error) {
+        console.error('Error fetching goals by position data:', error);
+    }
+}
+
+/* Handle UI updates */
 function updateTopScorersChart(labels, data) {
     const ctx = document.getElementById('topScorersChart').getContext('2d');
     new Chart(ctx, {
@@ -291,6 +327,7 @@ function updateClubAgeChart(labels, data) {
     });
 }
 
+let playerValueChart;
 function updatePlayerValueChart(labels, data) {
     const ctx = document.getElementById('playerValueChart').getContext('2d');
     
@@ -348,12 +385,102 @@ function updatePlayerValueChart(labels, data) {
     });
 }
 
+let goalsByPositionChart;
 
+function updateGoalsByPositionChart(labels, data) {
+    const ctx = document.getElementById('goalsByPositionChart').getContext('2d');
+    
+    if (goalsByPositionChart) {
+        goalsByPositionChart.destroy();
+    }
+    
+    goalsByPositionChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed || 0;
+                            const total = context.dataset.data.reduce((acc, data) => acc + data, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return `${label}: ${value} (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
 
+/* Handle table row creation */
+function createPlayerInfoRow(playerValuation) {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td>${playerValuation.position}</td>
+        <td>
+        <img src="${playerValuation.image_url}" alt="Player Image" class="rounded-circle user-img">
+        </td>
+        <td>${playerValuation.player_name}</td>
+        <td>${playerValuation.club_name}</td>
+        <td>${playerValuation.red_cards}</td>
+        <td>${playerValuation.yellow_cards}</td>
+        <td>${playerValuation.assists}</td>
+        <td>${playerValuation.goals}</td>
+        <td>${playerValuation.minutes_played}</td>
+        <td>${playerValuation.appearances}</td>
+        
+      `;
+    return row;
+  }
+
+function updatePlayerInfoTable(valuations) {
+    const playerValuationsTableBody = document.querySelector('#playerValuationsTable tbody');
+    playerValuationsTableBody.innerHTML = '';
+    if (Array.isArray(valuations)) {
+      // If playerValuations is an array
+      valuations.forEach(valuation => {
+        const row = createPlayerInfoRow(valuation);
+        playerValuationsTableBody.appendChild(row);
+      });
+    } else {
+      // If playerValuations is a single object
+      const row = createPlayerInfoRow(playerValuations);
+      playerValuationsTableBody.appendChild(row);
+    }
+  }
 
 document.addEventListener('DOMContentLoaded', () => {
     getTopPlayersByMarketValue();
     getRecentGames();
     getTopClubsByAverageAge();
     getTopGoalScorers();
+    getPlayerInfoLastWeek();
+    getGoalsByPosition();
 });
