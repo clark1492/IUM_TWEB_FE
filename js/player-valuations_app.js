@@ -270,9 +270,11 @@ document.addEventListener('DOMContentLoaded', function () {
           $('#editPlayerValuationModal').modal('hide');
           // Refresh the player valuation table
           refreshPlayerValuations();
+          createToast('Player Valuation Updated', 'Player valuation updated successfully');
         })
         .catch(error => {
           console.error('Error updating player valuation:', error);
+          createToast('Error Updating Player Valuation', 'An error occurred while updating player valuation');
           // Handle error
         });
   });
@@ -338,13 +340,15 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
           console.log('Player info updated successfully:', response.data);
           // Hide the modal after successful update
-          $('#editPlayerId').modal('hide');
+          $('#editPlayerModal').modal('hide');
           // Refresh the player valuation table
           refreshPlayerValuations();
+          createToast('Player Info Updated', 'Player info updated successfully');
         })
         .catch(error => {
           console.error('Error updating player valuation:', error);
           // Handle error
+          createToast('Error Updating Player Info', 'An error occurred while updating player info');
         });
   });
 
@@ -388,8 +392,47 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+
+  // Toast to handle feedback about operation
+  const toastContainer = document.querySelector('.toast-container');
+  //https://getbootstrap.com/docs/5.3/components/toasts/
+  function createToast(title, message, isError = false) {
+    var colorOk = '#007aff';
+    var colorError = '#EE4E4E';
+
+    //Fill headerSquareBox with the correct color
+    var color = isError ? colorError : colorOk;
+
+    if (!isError) {
+      headerSquareBox = `<svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="${color}"></rect></svg>`;
+    }
+    const toastHtml = `
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          ${headerSquareBox}
+          <strong class="me-auto">
+          ${title}
+          </strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          ${message}
+        </div>
+      </div>
+    `;
+
+    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+    const toastElement = toastContainer.lastElementChild;
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show(delay = 15000);
+
+    // Remove the toast element after it's hidden
+    toastElement.addEventListener('hidden.bs.toast', function () {
+      toastElement.remove();
+    });
+  }
+
+
   // Initial load of player valuations
   refreshPlayerValuations();
-
-
 });
